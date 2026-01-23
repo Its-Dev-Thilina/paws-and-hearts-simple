@@ -51,36 +51,34 @@ include_once BASE_PATH . 'includes/sidebar.php';
 
                         <form action="<?= BASE_URL ?>actions/caretaker-actions.php" method="post">
                             <input type="hidden" name="action" value="store">
-                            <div class="mb-3">
-                                <label for="formFile" class="form-label">Pet Image</label>
-                                <input class="form-control" type="file" id="formFile">
-                            </div>
                             <div class="row mb-3">
                                 <div class="col">
-                                    <input type="text" class="form-control" placeholder="Pet Name"
-                                        aria-label="First name">
+                                    <input type="text" class="form-control" placeholder="Name" aria-label="First name" name="care_name">
                                 </div>
                                 <div class="col">
-                                    <input type="text" class="form-control" placeholder="Pet Specie ( Dog | Cat )"
-                                        aria-label="Last name">
+                                    <input type="text" class="form-control" placeholder="Contact"
+                                        aria-label="Last name" name="contact">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col">
-                                    <input type="text" class="form-control" placeholder="Breed" aria-label="Breed">
+                                    <input type="text" class="form-control" placeholder="Experience" aria-label="Breed" name="experience">
+                                </div>
+                                <div class="col">
+                                    <input type="date" class="form-control" name="dob" placeholder="DOB" aria-label="DOB">
                                 </div>
                                 <div class="col">
                                     <div class="select-position">
-                                        <select class="light-bg form-control">
+                                        <select class="light-bg form-control" name="gender">
                                             <option value="">Select Gender</option>
-                                            <option value="">Male</option>
-                                            <option value="">Female</option>
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
                             <div class="mt-4">
-                                <a href="<?= BASE_URL ?>pages/pets.php"
+                                <a href="<?= BASE_URL ?>pages/caretakers.php"
                                     class="main-btn btn-sm light-btn btn-hover">Back</a>
                                 <input type="submit" value="Save" name="submit"
                                     class="main-btn btn-sm primary-btn btn-hover">

@@ -3,6 +3,11 @@ include_once '../includes/header.php';
 include_once BASE_PATH . 'includes/sidebar.php';
 ?>
 
+
+<?php
+$caretakers = mysqli_query($conn, "SELECT * FROM caretaker")->fetch_all(MYSQLI_ASSOC);
+?>
+
 <body>
     <!-- ======== Preloader =========== -->
     <div id="preloader" style="display: none;">
@@ -48,23 +53,27 @@ include_once BASE_PATH . 'includes/sidebar.php';
                     </div>
 
                     <div class="card-style mb-30">
-                         <a href="<?= BASE_URL ?>pages/caretakers-add.php" class="main-btn btn-sm primary-btn btn-hover">Add
+                        <a href="<?= BASE_URL ?>pages/caretakers-add.php"
+                            class="main-btn btn-sm primary-btn btn-hover">Add
                             Caretaker</a>
                         <div class="table-wrapper table-responsive">
                             <table class="table">
                                 <thead>
                                     <tr>
                                         <th class="lead-info">
-                                            <h6>Lead</h6>
+                                            <h6>Name</h6>
                                         </th>
                                         <th class="lead-email">
-                                            <h6>Email</h6>
+                                            <h6>Contact</h6>
                                         </th>
                                         <th class="lead-phone">
-                                            <h6>Phone No</h6>
+                                            <h6>Gender</h6>
+                                        </th>
+                                        <th class="lead-phone">
+                                            <h6>DOB</h6>
                                         </th>
                                         <th class="lead-company">
-                                            <h6>Company</h6>
+                                            <h6>Experience</h6>
                                         </th>
                                         <th>
                                             <h6>Action</h6>
@@ -73,35 +82,43 @@ include_once BASE_PATH . 'includes/sidebar.php';
                                     <!-- end table row-->
                                 </thead>
                                 <tbody>
+                                    <?php foreach ($caretakers as $caretaker): ?>
                                     <tr>
                                         <td class="min-width">
-                                            <div class="lead">
-                                                <div class="lead-image">
-                                                    <img src="assets/images/lead/lead-1.png" alt="">
-                                                </div>
-                                                <div class="lead-text">
-                                                    <p>Courtney Henry</p>
-                                                </div>
+                                            <div class="lead-text">
+                                                <p><?= $caretaker['name'] ?></p>
                                             </div>
                                         </td>
                                         <td class="min-width">
-                                            <p><a href="#0">yourmail@gmail.com</a></p>
+                                            <p><a href="#0"><?= $caretaker['contact'] ?></a></p>
                                         </td>
                                         <td class="min-width">
-                                            <p>(303)555 3343523</p>
+                                            <p><?= $caretaker['gender'] ?></p>
                                         </td>
                                         <td class="min-width">
-                                            <p>UIdeck digital agency</p>
+                                            <p><?= $caretaker['dob'] ?></p>
+                                        </td>
+                                        <td class="min-width">
+                                            <p><?= $caretaker['experience'] ?></p>
                                         </td>
                                         <td>
                                             <div class="action">
-                                                <button class="text-danger">
-                                                    <i class="lni lni-trash-can"></i>
-                                                </button>
+                                                <a href="<?= BASE_URL ?>pages/caretakers-edit.php?id=<?= $caretaker['id'] ?>"
+                                                    class="text-success me-2">
+                                                    <i class="lni lni-pencil-alt"></i>
+                                                </a>
+                                                <form action="<?= BASE_URL ?>actions/caretaker-actions.php" method="post">
+                                                    <input type="hidden" name="caretaker_id" value="<?= $caretaker['id'] ?>">
+                                                    <input type="hidden" name="action" value="delete">
+                                                    <button class="text-danger" type="submit" name="submit"
+                                                        value="submit">
+                                                        <i class="lni lni-trash-can"></i>
+                                                    </button>
+                                                </form>
                                             </div>
                                         </td>
                                     </tr>
-                                    
+                                    <?php endforeach; ?>
                                 </tbody>
                             </table>
                             <!-- end table -->
@@ -116,4 +133,4 @@ include_once BASE_PATH . 'includes/sidebar.php';
         </section>
         <!-- ========== section end ========== -->
 
-<?php include_once BASE_PATH . 'includes/footer.php'; ?>
+        <?php include_once BASE_PATH . 'includes/footer.php'; ?>
