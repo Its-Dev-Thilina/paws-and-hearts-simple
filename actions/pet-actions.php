@@ -13,27 +13,7 @@ if (!$submit || !$action) {
 
 if ($action == "store") {
 
-    // Uploading the image file to the server
-
-    if (!isset($_FILES['image']) || $_FILES['image']['error'] !== UPLOAD_ERR_OK) {
-        die('Error uploading file.');
-    }
-
-    $uploadDir = BASE_PATH . '/assets/uploads/pets/';
-
-    if (!is_dir($uploadDir)) {
-        mkdir($uploadDir, 0755, true);
-    }
-
-    $fileTmp  = $_FILES['image']['tmp_name'];
-    $fileName = basename($_FILES['image']['name']);
-
-    // Save Path to the Database
-    $uploadFilePath = '/assets/uploads/pets/' . $fileName;
-
-    move_uploaded_file($fileTmp, $uploadDir . $fileName);
-
-    // Start to Insert Data into Database
+    $uploadFilePath = uploadImage($_FILES['image']);
 
     $name = $_POST['pet_name'];
     $specie = $_POST['pet_specie'];
@@ -49,12 +29,21 @@ if ($action == "store") {
 
 if ($action == "update") {
     $id = (int) $_POST['id'];
-    $name = $_POST['name'];
-    $type = $_POST['type'];
+    
+    if($_FILES['image']['error'] === UPLOAD_ERR_NO_FILE){
+        $uploadFilePath = $_POST['image_path'];
+    } else {
+        $uploadFilePath = uploadImage($_FILES['image']);
+    }
+
+    $name = $_POST['pet_name'];
+    $specie = $_POST['pet_specie'];
+    $breed = $_POST['breed'];
+    $image_path = $uploadFilePath;
 
     mysqli_query(
         $conn,
-        "UPDATE pets SET name='$name', type='$type' WHERE id=$id"
+        "UPDATE pets SET name='$name', pet_specie='$specie', breed='$breed', image_path='$image_path' WHERE id=$id"
     );
 
     header('Location: ' . BASE_URL . 'pages/pets.php');
@@ -62,10 +51,29 @@ if ($action == "update") {
 }
 
 if ($action == "delete") {
-    $id = (int) $_POST['id'];
+    $id = (int) $_POST['pet_id'];
 
     mysqli_query($conn, "DELETE FROM pets WHERE id=$id");
 
     header('Location: ' . BASE_URL . 'pages/pets.php');
     exit;
+}
+
+
+function uploadImage($file)
+{
+    $uploadDir = BASE_PATH . '/assets/uploads/pets/';
+
+    if (!is_dir($uploadDir)) {
+        mkdir($uploadDir, 0755, true);
+    }
+
+    $fileTmp  = $file['tmp_name'];
+    $fileName = basename($file['name']);
+
+    $uploadFilePath = '/assets/uploads/pets/' . $fileName;
+
+    move_uploaded_file($fileTmp, $uploadDir . $fileName);
+
+    return $uploadFilePath;
 }

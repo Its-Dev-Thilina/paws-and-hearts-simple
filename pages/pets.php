@@ -5,7 +5,7 @@ include_once BASE_PATH . 'config/database.php';
 ?>
 
 <?php
-    $pets = mysqli_query($conn, "SELECT * FROM pets")->fetch_all(MYSQLI_ASSOC);
+$pets = mysqli_query($conn, "SELECT * FROM pets")->fetch_all(MYSQLI_ASSOC);
 ?>
 
 <body>
@@ -75,35 +75,41 @@ include_once BASE_PATH . 'config/database.php';
                                     <!-- end table row-->
                                 </thead>
                                 <tbody>
-                                    <?php foreach ($pets as $pet) : ?>
-                                    <tr>
-                                        <td class="min-width">
-                                            <div class="lead">
-                                                <div class="lead-image w-100" style="height: 50px;">
-                                                    <img src="<?= BASE_URL ?><?= $pet['image_path'] ?>" class="w-100 h-100 object-fit-cover" alt="">
+                                    <?php foreach ($pets as $pet): ?>
+                                        <tr>
+                                            <td class="min-width">
+                                                <div class="lead">
+                                                    <div class="lead-image w-100" style="height: 50px;">
+                                                        <img src="<?= BASE_URL ?><?= $pet['image_path'] ?>"
+                                                            class="w-100 h-100 object-fit-cover" alt="">
+                                                    </div>
+                                                    <div class="lead-text">
+                                                        <p><?= $pet['name'] ?></p>
+                                                    </div>
                                                 </div>
-                                                <div class="lead-text">
-                                                    <p><?= $pet['name'] ?></p>
+                                            </td>
+                                            <td class="min-width">
+                                                <p><a href="#0"><?= $pet['pet_specie'] ?></a></p>
+                                            </td>
+                                            <td class="min-width">
+                                                <p><?= $pet['breed'] ?></p>
+                                            </td>
+                                            <td>
+                                                <div class="action">
+                                                    <a href="<?= BASE_URL ?>pages/pets-edit.php?id=<?= $pet['id'] ?>" class="text-success me-2">
+                                                        <i class="lni lni-pencil-alt"></i>
+                                                    </a>
+                                                    <form action="<?= BASE_URL ?>actions/pet-actions.php" method="post">
+                                                        <input type="hidden" name="pet_id" value="<?= $pet['id'] ?>">
+                                                        <input type="hidden" name="action" value="delete">
+                                                        <button class="text-danger" type="submit" name="submit"
+                                                            value="submit">
+                                                            <i class="lni lni-trash-can"></i>
+                                                        </button>
+                                                    </form>
                                                 </div>
-                                            </div>
-                                        </td>
-                                        <td class="min-width">
-                                            <p><a href="#0"><?= $pet['pet_specie'] ?></a></p>
-                                        </td>
-                                        <td class="min-width">
-                                            <p><?= $pet['breed'] ?></p>
-                                        </td>
-                                        <td>
-                                            <div class="action">
-                                                <button class="text-success me-2">
-                                                    <i class="lni lni-pencil-alt"></i>
-                                                </button>
-                                                <button class="text-danger">
-                                                    <i class="lni lni-trash-can"></i>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                            </td>
+                                        </tr>
                                     <?php endforeach; ?>
                                 </tbody>
                             </table>
