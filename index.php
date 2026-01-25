@@ -1,6 +1,16 @@
 <?php
 include_once __DIR__ . '/config/config.php';
 include_once BASE_PATH . '/config/database.php';
+
+// Fetch pets from database (only not adopted pets - status = 1)
+$pets_query = "SELECT id, name, image_path, pet_specie as species, breed, COALESCE(description, '') as description FROM pets WHERE status = 1";
+$pets_result = mysqli_query($conn, $pets_query);
+$dbPets = [];
+if ($pets_result) {
+    while ($pet = mysqli_fetch_assoc($pets_result)) {
+        $dbPets[] = $pet;
+    }
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -124,23 +134,6 @@ include_once BASE_PATH . '/config/database.php';
                                             <option value="other">Other</option>
                                         </select>
                                     </div>
-                                    <div class="col-md-6 col-lg-3">
-                                        <label class="form-label fw-bold">Age Group</label>
-                                        <select class="form-select" id="filterAge">
-                                            <option value="">All Ages</option>
-                                            <option value="young">Young (0-2 years)</option>
-                                            <option value="adult">Adult (2-7 years)</option>
-                                            <option value="senior">Senior (7+ years)</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-6 col-lg-3">
-                                        <label class="form-label fw-bold">Status</label>
-                                        <select class="form-select" id="filterStatus">
-                                            <option value="">All Status</option>
-                                            <option value="available">Available</option>
-                                            <option value="adopted">Adopted</option>
-                                        </select>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -224,168 +217,37 @@ include_once BASE_PATH . '/config/database.php';
 
     <script src="<?= BASE_URL ?>assets/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Sample pet data - replace with actual data from your database
-        const samplePets = [{
-                id: 1,
-                name: "Max",
-                species: "dog",
-                age: "young",
-                status: "available",
-                image: "assets/images/logo/logo.png"
-            },
-            {
-                id: 2,
-                name: "Luna",
-                species: "cat",
-                age: "adult",
-                status: "available",
-                image: "assets/images/logo/logo.png"
-            },
-            {
-                id: 3,
-                name: "Charlie",
-                species: "dog",
-                age: "adult",
-                status: "adopted",
-                image: "assets/images/logo/logo.png"
-            },
-            {
-                id: 4,
-                name: "Bella",
-                species: "cat",
-                age: "young",
-                status: "available",
-                image: "assets/images/logo/logo.png"
-            },
-            {
-                id: 5,
-                name: "Rocky",
-                species: "dog",
-                age: "young",
-                status: "available",
-                image: "assets/images/logo/logo.png"
-            },
-            {
-                id: 6,
-                name: "Whiskers",
-                species: "cat",
-                age: "adult",
-                status: "available",
-                image: "assets/images/logo/logo.png"
-            },
-            {
-                id: 7,
-                name: "Daisy",
-                species: "rabbit",
-                age: "young",
-                status: "available",
-                image: "assets/images/logo/logo.png"
-            },
-            {
-                id: 8,
-                name: "Oscar",
-                species: "dog",
-                age: "senior",
-                status: "available",
-                image: "assets/images/logo/logo.png"
-            },
-            {
-                id: 9,
-                name: "Mittens",
-                species: "cat",
-                age: "young",
-                status: "adopted",
-                image: "assets/images/logo/logo.png"
-            },
-            {
-                id: 10,
-                name: "Buddy",
-                species: "dog",
-                age: "adult",
-                status: "available",
-                image: "assets/images/logo/logo.png"
-            },
-            {
-                id: 11,
-                name: "Simba",
-                species: "cat",
-                age: "senior",
-                status: "available",
-                image: "assets/images/logo/logo.png"
-            },
-            {
-                id: 12,
-                name: "Bailey",
-                species: "dog",
-                age: "young",
-                status: "available",
-                image: "assets/images/logo/logo.png"
-            },
-            {
-                id: 13,
-                name: "Cleo",
-                species: "cat",
-                age: "adult",
-                status: "available",
-                image: "assets/images/logo/logo.png"
-            },
-            {
-                id: 14,
-                name: "Zeus",
-                species: "dog",
-                age: "adult",
-                status: "available",
-                image: "assets/images/logo/logo.png"
-            },
-            {
-                id: 15,
-                name: "Pepper",
-                species: "rabbit",
-                age: "adult",
-                status: "adopted",
-                image: "assets/images/logo/logo.png"
-            },
-            {
-                id: 16,
-                name: "Shadow",
-                species: "cat",
-                age: "young",
-                status: "available",
-                image: "assets/images/logo/logo.png"
-            },
-            {
-                id: 17,
-                name: "Duke",
-                species: "dog",
-                age: "young",
-                status: "available",
-                image: "assets/images/logo/logo.png"
-            },
-            {
-                id: 18,
-                name: "Fluffy",
-                species: "rabbit",
-                age: "young",
-                status: "available",
-                image: "assets/images/logo/logo.png"
-            },
-            {
-                id: 19,
-                name: "Ginger",
-                species: "cat",
-                age: "senior",
-                status: "available",
-                image: "assets/images/logo/logo.png"
-            },
-            {
-                id: 20,
-                name: "Cooper",
-                species: "dog",
-                age: "adult",
-                status: "adopted",
-                image: "assets/images/logo/logo.png"
-            },
-        ];
+        // Initialize modal once
+        let petModalInstance = null;
+        
+        // Setup modal event listeners for proper cleanup
+        document.addEventListener('DOMContentLoaded', function() {
+            const petModalElement = document.getElementById('petModal');
+            if (petModalElement) {
+                petModalElement.addEventListener('hidden.bs.modal', function() {
+                    // Remove backdrop if it exists
+                    const backdrops = document.querySelectorAll('.modal-backdrop');
+                    backdrops.forEach(backdrop => backdrop.remove());
+                    // Ensure body is scrollable
+                    document.body.classList.remove('modal-open');
+                    document.body.style.overflow = '';
+                });
+            }
+        });
+        
+        // Pet data from database
+        const samplePets = <?php echo json_encode($dbPets); ?>;
+        
+        // Map database field names if they differ
+        const mappedPets = samplePets.map(pet => ({
+            id: pet.id,
+            name: pet.name,
+            species: (pet.species || 'dog').toLowerCase(),
+            status: 'available',
+            image: pet.image_path || 'assets/images/logo/logo.png',
+            breed: pet.breed || '',
+            description: pet.description || ''
+        }));
 
         // Pagination settings
         let currentPage = 0;
@@ -420,13 +282,12 @@ include_once BASE_PATH . '/config/database.php';
                             <p class="card-text text-muted mb-2">
                                 <small>
                                     <span class="badge bg-info text-dark">${pet.species}</span>
-                                    <span class="badge bg-warning text-dark">${pet.age}</span>
                                 </small>
                             </p>
                             <p class="card-text mb-3">
-                                ${pet.status === 'available' ? '<span class="badge bg-success">Available</span>' : '<span class="badge bg-secondary">Adopted</span>'}
+                                <span class="badge bg-success">Available</span>
                             </p>
-                            <button class="btn btn-sm btn-primary w-100" onclick="showPetModal(${pet.id})">${pet.status === 'available' ? 'Learn More' : 'Success Story'}</button>
+                            <button class="btn btn-sm btn-primary w-100" type="button" data-bs-toggle="modal" data-bs-target="#petModal" onclick="showPetModal(${pet.id})">Learn More</button>
                         </div>
                     </div>
                 </div>
@@ -454,60 +315,56 @@ include_once BASE_PATH . '/config/database.php';
         }
 
         function showPetModal(petId) {
-            const pet = samplePets.find(p => p.id === petId);
-            if (!pet) return;
+            // Convert to number to ensure proper matching
+            petId = parseInt(petId);
+            const pet = mappedPets.find(p => parseInt(p.id) === petId);
+            if (!pet) {
+                console.log('Pet not found:', petId);
+                console.log('Available pets:', mappedPets);
+                return;
+            }
 
             const modalBody = document.getElementById('petModalBody');
+            const petModalElement = document.getElementById('petModal');
+            
+            if (!modalBody || !petModalElement) {
+                console.log('Modal elements not found');
+                return;
+            }
+
             modalBody.innerHTML = `
                 <div class="row">
                     <div class="col-md-6">
-                        <img src="${pet.image}" class="img-fluid rounded" alt="${pet.name}" style="width: 100%; height: 300px; object-fit: cover;">
+                        <img src="${pet.image}" class="img-fluid rounded" alt="${pet.name}" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6 ps-3">
                         <h3 class="fw-bold mb-3">${pet.name}</h3>
-                        <div class="mb-3">
-                            <p class="mb-2"><strong>Species:</strong> ${pet.species.charAt(0).toUpperCase() + pet.species.slice(1)}</p>
-                            <p class="mb-2"><strong>Age Group:</strong> ${pet.age.charAt(0).toUpperCase() + pet.age.slice(1)}</p>
-                            <p class="mb-2"><strong>Status:</strong> ${pet.status === 'available' ? '<span class="badge bg-success">Available for Adoption</span>' : '<span class="badge bg-secondary">Adopted</span>'}</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-4">
-                    <div class="col-12">
-                        <h5 class="fw-bold mb-3">About ${pet.name}</h5>
-                        <p class="text-muted">
-                            ${pet.name} is a wonderful ${pet.species} who came to us as a stray. After receiving proper care and rehabilitation, 
-                            ${pet.name} is now ready to find their perfect forever home. This loving companion is eager to shower their new family 
-                            with unconditional love and companionship.
-                        </p>
-                        <h5 class="fw-bold mt-3 mb-2">Health & Care</h5>
-                        <ul class="text-muted">
-                            <li>Fully vaccinated and microchipped</li>
-                            <li>Spayed/Neutered</li>
-                            <li>Regular health checkups completed</li>
-                            <li>Socialized and ready for family life</li>
-                        </ul>
+                        <p class="mb-3"><strong>Species:</strong> ${pet.species.charAt(0).toUpperCase() + pet.species.slice(1)}</p>
+                        <h5 class="fw-bold mb-2">About</h5>
+                        <p class="text-muted">${pet.description || 'No description available.'}</p>
                     </div>
                 </div>
             `;
 
-            const petModal = new bootstrap.Modal(document.getElementById('petModal'));
-            petModal.show();
+            try {
+                if (!petModalInstance) {
+                    petModalInstance = new bootstrap.Modal(petModalElement);
+                }
+                petModalInstance.show();
+            } catch(e) {
+                console.log('Error showing modal:', e);
+            }
         }
 
         function filterPets() {
             const searchTerm = document.getElementById('searchPet').value.toLowerCase();
             const species = document.getElementById('filterSpecies').value;
-            const age = document.getElementById('filterAge').value;
-            const status = document.getElementById('filterStatus').value;
 
-            let filtered = samplePets.filter(pet => {
+            let filtered = mappedPets.filter(pet => {
                 const matchesSearch = pet.name.toLowerCase().includes(searchTerm);
                 const matchesSpecies = !species || pet.species === species;
-                const matchesAge = !age || pet.age === age;
-                const matchesStatus = !status || pet.status === status;
 
-                return matchesSearch && matchesSpecies && matchesAge && matchesStatus;
+                return matchesSearch && matchesSpecies;
             });
 
             displayPets(filtered);
@@ -520,11 +377,9 @@ include_once BASE_PATH . '/config/database.php';
         // Event listeners for filters
         document.getElementById('searchPet').addEventListener('input', filterPets);
         document.getElementById('filterSpecies').addEventListener('change', filterPets);
-        document.getElementById('filterAge').addEventListener('change', filterPets);
-        document.getElementById('filterStatus').addEventListener('change', filterPets);
 
         // Initial display
         window.addEventListener('load', () => {
-            displayPets(samplePets);
+            displayPets(mappedPets);
         });
     </script>

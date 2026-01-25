@@ -65,9 +65,14 @@ include_once BASE_PATH . 'includes/sidebar.php';
                                         aria-label="Last name" name="pet_specie">
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row mb-3">
                                 <div class="col-6">
                                     <input type="text" class="form-control" placeholder="Breed" aria-label="Breed" name="breed">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <textarea cols="10" rows="6" name="description" id="description" class="form-control" placeholder="Description"></textarea>
                                 </div>
                             </div>
                             <div class="mt-4">

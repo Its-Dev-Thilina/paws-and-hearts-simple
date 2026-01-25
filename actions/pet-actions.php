@@ -18,9 +18,10 @@ if ($action == "store") {
     $name = $_POST['pet_name'];
     $specie = $_POST['pet_specie'];
     $breed = $_POST['breed'];
+    $description = $_POST['description'];
     $image_path = $uploadFilePath;
 
-    $query = "INSERT INTO pets (name, image_path, pet_specie, breed) VALUES ('$name', '$image_path', '$specie', '$breed')";
+    $query = "INSERT INTO pets (name, image_path, pet_specie, breed, description) VALUES ('$name', '$image_path', '$specie', '$breed', '$description')";
     mysqli_query($conn, $query);
 
     header('Location: ' . BASE_URL . 'pages/pets.php');

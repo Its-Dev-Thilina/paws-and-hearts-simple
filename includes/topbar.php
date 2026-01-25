@@ -1,4 +1,4 @@
-<?php include_once __DIR__ . '/config/config.php'; ?>
+<?php include_once __DIR__ . '/../config/config.php'; ?>
 
 <header class="header" style="box-shadow: none;">
     <div class="container-fluid">
