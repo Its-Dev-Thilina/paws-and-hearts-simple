@@ -13,20 +13,16 @@ include_once 'includes/header.php';
     <main>
 
         <!-- ========== Hero Section ========== -->
-        <section class="hero-section py-5" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+        <section class="hero-section py-5">
             <div class="container">
                 <div class="row align-items-center min-vh-100">
-                    <div class="col-lg-6">
+                    <div class="col-sm-6">
                         <h1 class="display-4 fw-bold mb-4">Paws And Hearts</h1>
                         <p class="lead mb-4">Giving stray animals a second chance at life. We rescue, care for, and find loving homes for animals in need.</p>
                         <div class="d-flex gap-3">
                             <button class="btn btn-light btn-lg" onclick="document.getElementById('pets-section').scrollIntoView({behavior: 'smooth'})">Find a Pet</button>
-                            <button class="btn btn-outline-light btn-lg" onclick="document.getElementById('about-section').scrollIntoView({behavior: 'smooth'})">Learn More</button>
+                            <button class="btn btn-lg" style="background-color: white; color: var(--primary-color); border: none; font-weight: 600;" onclick="document.getElementById('about-section').scrollIntoView({behavior: 'smooth'})">Learn More</button>
                         </div>
-                    </div>
-                    <div class="col-lg-6 text-center">
-                        <div class="display-1 mb-4">🐾</div>
-                        <p class="h5 text-white-50">Every animal deserves a loving home</p>
                     </div>
                 </div>
             </div>
@@ -154,11 +150,11 @@ include_once 'includes/header.php';
                     </div>
                 </div>
             </div>
-        </section>
+        </section> 
         <!-- ========== Pets Section End ========== -->
 
         <!-- ========== Contact Section ========== -->
-        <section class="contact-section py-5 bg-light">
+        <section class="contact-section py-5" style="background-color: var(--primary-color);">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12 text-center mb-5">
@@ -216,27 +212,166 @@ include_once 'includes/header.php';
     <script src="<?= BASE_URL ?>assets/js/bootstrap.bundle.min.js"></script>
     <script>
         // Sample pet data - replace with actual data from your database
-        const samplePets = [
-            { id: 1, name: "Max", species: "dog", age: "young", status: "available", image: "assets/images/logo/logo.png" },
-            { id: 2, name: "Luna", species: "cat", age: "adult", status: "available", image: "assets/images/logo/logo.png" },
-            { id: 3, name: "Charlie", species: "dog", age: "adult", status: "adopted", image: "assets/images/logo/logo.png" },
-            { id: 4, name: "Bella", species: "cat", age: "young", status: "available", image: "assets/images/logo/logo.png" },
-            { id: 5, name: "Rocky", species: "dog", age: "young", status: "available", image: "assets/images/logo/logo.png" },
-            { id: 6, name: "Whiskers", species: "cat", age: "adult", status: "available", image: "assets/images/logo/logo.png" },
-            { id: 7, name: "Daisy", species: "rabbit", age: "young", status: "available", image: "assets/images/logo/logo.png" },
-            { id: 8, name: "Oscar", species: "dog", age: "senior", status: "available", image: "assets/images/logo/logo.png" },
-            { id: 9, name: "Mittens", species: "cat", age: "young", status: "adopted", image: "assets/images/logo/logo.png" },
-            { id: 10, name: "Buddy", species: "dog", age: "adult", status: "available", image: "assets/images/logo/logo.png" },
-            { id: 11, name: "Simba", species: "cat", age: "senior", status: "available", image: "assets/images/logo/logo.png" },
-            { id: 12, name: "Bailey", species: "dog", age: "young", status: "available", image: "assets/images/logo/logo.png" },
-            { id: 13, name: "Cleo", species: "cat", age: "adult", status: "available", image: "assets/images/logo/logo.png" },
-            { id: 14, name: "Zeus", species: "dog", age: "adult", status: "available", image: "assets/images/logo/logo.png" },
-            { id: 15, name: "Pepper", species: "rabbit", age: "adult", status: "adopted", image: "assets/images/logo/logo.png" },
-            { id: 16, name: "Shadow", species: "cat", age: "young", status: "available", image: "assets/images/logo/logo.png" },
-            { id: 17, name: "Duke", species: "dog", age: "young", status: "available", image: "assets/images/logo/logo.png" },
-            { id: 18, name: "Fluffy", species: "rabbit", age: "young", status: "available", image: "assets/images/logo/logo.png" },
-            { id: 19, name: "Ginger", species: "cat", age: "senior", status: "available", image: "assets/images/logo/logo.png" },
-            { id: 20, name: "Cooper", species: "dog", age: "adult", status: "adopted", image: "assets/images/logo/logo.png" },
+        const samplePets = [{
+                id: 1,
+                name: "Max",
+                species: "dog",
+                age: "young",
+                status: "available",
+                image: "assets/images/logo/logo.png"
+            },
+            {
+                id: 2,
+                name: "Luna",
+                species: "cat",
+                age: "adult",
+                status: "available",
+                image: "assets/images/logo/logo.png"
+            },
+            {
+                id: 3,
+                name: "Charlie",
+                species: "dog",
+                age: "adult",
+                status: "adopted",
+                image: "assets/images/logo/logo.png"
+            },
+            {
+                id: 4,
+                name: "Bella",
+                species: "cat",
+                age: "young",
+                status: "available",
+                image: "assets/images/logo/logo.png"
+            },
+            {
+                id: 5,
+                name: "Rocky",
+                species: "dog",
+                age: "young",
+                status: "available",
+                image: "assets/images/logo/logo.png"
+            },
+            {
+                id: 6,
+                name: "Whiskers",
+                species: "cat",
+                age: "adult",
+                status: "available",
+                image: "assets/images/logo/logo.png"
+            },
+            {
+                id: 7,
+                name: "Daisy",
+                species: "rabbit",
+                age: "young",
+                status: "available",
+                image: "assets/images/logo/logo.png"
+            },
+            {
+                id: 8,
+                name: "Oscar",
+                species: "dog",
+                age: "senior",
+                status: "available",
+                image: "assets/images/logo/logo.png"
+            },
+            {
+                id: 9,
+                name: "Mittens",
+                species: "cat",
+                age: "young",
+                status: "adopted",
+                image: "assets/images/logo/logo.png"
+            },
+            {
+                id: 10,
+                name: "Buddy",
+                species: "dog",
+                age: "adult",
+                status: "available",
+                image: "assets/images/logo/logo.png"
+            },
+            {
+                id: 11,
+                name: "Simba",
+                species: "cat",
+                age: "senior",
+                status: "available",
+                image: "assets/images/logo/logo.png"
+            },
+            {
+                id: 12,
+                name: "Bailey",
+                species: "dog",
+                age: "young",
+                status: "available",
+                image: "assets/images/logo/logo.png"
+            },
+            {
+                id: 13,
+                name: "Cleo",
+                species: "cat",
+                age: "adult",
+                status: "available",
+                image: "assets/images/logo/logo.png"
+            },
+            {
+                id: 14,
+                name: "Zeus",
+                species: "dog",
+                age: "adult",
+                status: "available",
+                image: "assets/images/logo/logo.png"
+            },
+            {
+                id: 15,
+                name: "Pepper",
+                species: "rabbit",
+                age: "adult",
+                status: "adopted",
+                image: "assets/images/logo/logo.png"
+            },
+            {
+                id: 16,
+                name: "Shadow",
+                species: "cat",
+                age: "young",
+                status: "available",
+                image: "assets/images/logo/logo.png"
+            },
+            {
+                id: 17,
+                name: "Duke",
+                species: "dog",
+                age: "young",
+                status: "available",
+                image: "assets/images/logo/logo.png"
+            },
+            {
+                id: 18,
+                name: "Fluffy",
+                species: "rabbit",
+                age: "young",
+                status: "available",
+                image: "assets/images/logo/logo.png"
+            },
+            {
+                id: 19,
+                name: "Ginger",
+                species: "cat",
+                age: "senior",
+                status: "available",
+                image: "assets/images/logo/logo.png"
+            },
+            {
+                id: 20,
+                name: "Cooper",
+                species: "dog",
+                age: "adult",
+                status: "adopted",
+                image: "assets/images/logo/logo.png"
+            },
         ];
 
         // Pagination settings
@@ -247,7 +382,7 @@ include_once 'includes/header.php';
 
         function displayPets(pets, isLoadMore = false) {
             const container = document.getElementById('petsContainer');
-            
+
             if (pets.length === 0) {
                 container.innerHTML = '<div class="col-lg-12 text-center py-5"><p class="text-muted">No pets found matching your criteria.</p></div>';
                 return;
@@ -293,7 +428,7 @@ include_once 'includes/header.php';
             // Show/hide load more button
             const loadMoreBtn = document.getElementById('loadMoreBtn');
             const totalDisplayed = (currentPage + 1) * petsPerPage;
-            
+
             if (loadMoreBtn) {
                 if (totalDisplayed < filteredPets.length) {
                     loadMoreBtn.style.display = 'block';

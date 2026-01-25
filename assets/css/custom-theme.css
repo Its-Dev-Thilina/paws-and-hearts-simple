@@ -52,7 +52,7 @@
 
 .btn-primary:not(:disabled):not(.disabled).active,
 .btn-primary:not(:disabled):not(.disabled):active,
-.show > .btn-primary.dropdown-toggle {
+.show>.btn-primary.dropdown-toggle {
     background-color: var(--primary-dark) !important;
     border-color: var(--primary-dark) !important;
 }
@@ -104,19 +104,66 @@ a:hover {
 
 /* ========== Hero Section ========== */
 .hero-section {
-    background: linear-gradient(135deg, #ec4899 0%, #be185d 100%) !important;
+    background-image: 
+        linear-gradient(135deg, rgba(236, 72, 153, 0.15) 0%, rgba(190, 24, 93, 0.15) 100%),
+        url('../images/hero.jpg');
+    background-size: cover; 
+    background-position: center;    
+    background-attachment: fixed;
+    color: white;
+    position: relative;
 }
 
-/* ========== Modal ========== */
-.modal-header.bg-primary {
+/* Hero Section Text Visibility */
+.hero-section h1,
+.hero-section .display-4 {
+    color: white !important;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6), 
+                 -1px -1px 2px rgba(0, 0, 0, 0.4);
+    font-weight: 700;
+}
+
+.hero-section p,
+.hero-section .lead {
+    color: white !important;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+}
+
+.hero-section .btn {
+    text-shadow: none;
+    font-weight: 600;
+}
+
+/* Hero Section Pink Buttons */
+.hero-section .btn-light {
     background-color: var(--primary-color) !important;
+    color: white !important;
+    border-color: var(--primary-color) !important;
 }
 
-.modal-header.bg-primary.bg-gradient {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%) !important;
+.hero-section .btn-light:hover {
+    background-color: var(--primary-dark) !important;
+    border-color: var(--primary-dark) !important;
+    color: white !important;
 }
 
-/* ========== Success Badge Colors ========== */
+.hero-section .btn-outline-light {
+    background-color: var(--primary-color) !important;
+    color: white !important;
+    border-color: var(--primary-color) !important;
+}
+
+.hero-section .btn-outline-light:hover {
+    background-color: var(--primary-dark) !important;
+    border-color: var(--primary-dark) !important;
+    color: white !important;
+}
+
+/* Hero Section Paws Icon */
+.hero-section .display-1 {
+    fill: var(--primary-color) !important;
+    filter: saturate(1.5) brightness(1.1);
+}
 .badge.bg-success {
     background-color: var(--success-color) !important;
 }
