@@ -16,6 +16,7 @@ include_once __DIR__ . '/../config/config.php';
     <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/materialdesignicons.min.css" />
     <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/fullcalendar.css" />
     <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/main.css" />
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/custom-theme.css" />
 </head>
 
 <body>

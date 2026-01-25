@@ -1,0 +1,592 @@
+/* ==========================================
+   PAWS AND HEARTS - CUSTOM THEME COLORS
+   ========================================== */
+
+/* ========== CSS Custom Properties (Variables) ========== */
+:root {
+    --primary-color: #ec4899;
+    --primary-dark: #be185d;
+    --primary-light: #f472b6;
+    --secondary-color: #f093fb;
+    --success-color: #10b981;
+    --danger-color: #ef4444;
+    --warning-color: #f59e0b;
+    --info-color: #06b6d4;
+    --light-bg: #fcfafd;
+    --dark-text: #1f2937;
+    --border-color: #f3e8f1;
+    --soft-pink-bg: #faf8fa;
+}
+
+/* ========== Bootstrap Color Overrides ========== */
+
+/* Primary Color */
+.btn-primary {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+    color: white !important;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark) !important;
+    border-color: var(--primary-dark) !important;
+    color: white !important;
+}
+
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active {
+    background-color: var(--primary-dark) !important;
+    border-color: var(--primary-dark) !important;
+    color: white !important;
+    box-shadow: 0 0 0 0.25rem rgba(236, 72, 153, 0.5) !important;
+}
+
+/* Ensure all button states are pink */
+.btn-primary.focus,
+.btn-primary:focus {
+    background-color: var(--primary-dark) !important;
+    border-color: var(--primary-dark) !important;
+    box-shadow: 0 0 0 0.25rem rgba(236, 72, 153, 0.5) !important;
+}
+
+.btn-primary:not(:disabled):not(.disabled).active,
+.btn-primary:not(:disabled):not(.disabled):active,
+.show > .btn-primary.dropdown-toggle {
+    background-color: var(--primary-dark) !important;
+    border-color: var(--primary-dark) !important;
+}
+
+/* Primary Outline Button */
+.btn-outline-primary {
+    color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:focus,
+.btn-outline-primary:active,
+.btn-outline-primary.active {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+    color: white !important;
+}
+
+/* Links */
+a {
+    color: var(--primary-color) !important;
+}
+
+a:hover {
+    color: var(--primary-dark) !important;
+}
+
+/* Badges - Primary */
+.badge.bg-primary {
+    background-color: var(--primary-color) !important;
+}
+
+/* Cards */
+.card {
+    border: 1px solid var(--border-color);
+}
+
+.card:hover {
+    box-shadow: 0 10px 25px rgba(236, 72, 153, 0.1);
+}
+
+/* Form Controls */
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 0 0 0.2rem rgba(236, 72, 153, 0.25) !important;
+}
+
+/* ========== Hero Section ========== */
+.hero-section {
+    background: linear-gradient(135deg, #ec4899 0%, #be185d 100%) !important;
+}
+
+/* ========== Modal ========== */
+.modal-header.bg-primary {
+    background-color: var(--primary-color) !important;
+}
+
+.modal-header.bg-primary.bg-gradient {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%) !important;
+}
+
+/* ========== Success Badge Colors ========== */
+.badge.bg-success {
+    background-color: var(--success-color) !important;
+}
+
+/* ========== Info Badge Colors ========== */
+.badge.bg-info {
+    background-color: var(--info-color) !important;
+}
+
+/* ========== Warning Badge Colors ========== */
+.badge.bg-warning {
+    background-color: var(--warning-color) !important;
+}
+
+/* ========== Danger Badge Colors ========== */
+.badge.bg-danger {
+    background-color: var(--danger-color) !important;
+}
+
+/* ========== Secondary Colors ========== */
+.btn-secondary {
+    background-color: #6b7280 !important;
+    border-color: #6b7280 !important;
+}
+
+.btn-secondary:hover {
+    background-color: #4b5563 !important;
+    border-color: #4b5563 !important;
+}
+
+.badge.bg-secondary {
+    background-color: #9ca3af !important;
+}
+
+/* ========== Background Colors ========== */
+.bg-light {
+    background-color: var(--light-bg) !important;
+}
+
+/* Page background - soft pinkish tone */
+body {
+    background-color: var(--soft-pink-bg) !important;
+}
+
+.main-wrapper {
+    background-color: var(--soft-pink-bg) !important;
+}
+
+.section {
+    background-color: var(--soft-pink-bg) !important;
+}
+
+.container-fluid {
+    background-color: transparent;
+}
+
+/* ========== Text Colors ========== */
+.text-primary {
+    color: var(--primary-color) !important;
+}
+
+.text-primary:hover {
+    color: var(--primary-dark) !important;
+}
+
+/* ========== Border Colors ========== */
+.border-primary {
+    border-color: var(--primary-color) !important;
+}
+
+/* ========== Gradient Backgrounds ========== */
+.bg-gradient-primary {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%) !important;
+}
+
+/* ========== Shadows with Primary Color ========== */
+.shadow-primary {
+    box-shadow: 0 10px 25px rgba(236, 72, 153, 0.15);
+}
+
+.shadow-sm {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* ========== Navigation & Pagination ========== */
+.nav-link.active {
+    color: var(--primary-color) !important;
+    border-bottom-color: var(--primary-color) !important;
+}
+
+.pagination .page-link {
+    color: var(--primary-color) !important;
+}
+
+.pagination .page-link:hover {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+    color: white !important;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+}
+
+/* ========== Progress Bar ========== */
+.progress-bar {
+    background-color: var(--primary-color) !important;
+}
+
+/* ========== Custom Utilities ========== */
+
+/* Text utilities */
+.text-dark {
+    color: var(--dark-text) !important;
+}
+
+/* Hover Effects */
+.card {
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(236, 72, 153, 0.2);
+}
+
+/* Button Smooth Transitions */
+.btn {
+    transition: all 0.3s ease;
+}
+
+/* Override button default colors */
+button.btn-primary,
+a.btn-primary,
+input[type="button"].btn-primary,
+input[type="submit"].btn-primary {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+    color: white !important;
+}
+
+button.btn-primary:hover,
+a.btn-primary:hover,
+input[type="button"].btn-primary:hover,
+input[type="submit"].btn-primary:hover {
+    background-color: var(--primary-dark) !important;
+    border-color: var(--primary-dark) !important;
+    color: white !important;
+}
+
+/* ========== Admin Pages Button Styling ========== */
+/* Primary Buttons - Pink background with white text */
+.main-btn.primary-btn {
+    background-color: var(--primary-color) !important;
+    color: white !important;
+    border: none !important;
+    font-weight: 600 !important;
+}
+
+.main-btn.primary-btn:hover {
+    background-color: var(--primary-dark) !important;
+    color: white !important;
+    border: none !important;
+}
+
+/* Menu toggle button */
+.menu-toggle,
+.menu-btn {
+    color: white !important;
+    border: none !important;
+    background-color: var(--primary-color) !important;
+}
+
+.menu-toggle:hover,
+.menu-btn:hover {
+    background-color: var(--primary-dark) !important;
+    color: white !important;
+    border: none !important;
+}
+
+/* ========== Accessibility ========== */
+.btn-primary:disabled,
+.btn-primary.disabled {
+    background-color: #d1d5db !important;
+    border-color: #d1d5db !important;
+}
+
+/* ========== Sidebar & Admin Components ========== */
+.sidebar-nav .nav-link.active {
+    background-color: var(--primary-color) !important;
+    color: white !important;
+}
+
+.sidebar-nav .nav-link:hover {
+    background-color: rgba(236, 72, 153, 0.1) !important;
+    color: var(--primary-color) !important;
+}
+
+/* Topbar Styling */
+.topbar {
+    background-color: white !important;
+    border-bottom: 1px solid var(--border-color) !important;
+}
+
+.topbar .notification-bar i:hover {
+    color: var(--primary-color) !important;
+}
+
+/* Table Styling */
+.table thead th {
+    background-color: var(--light-bg) !important;
+    color: var(--dark-text) !important;
+    border-color: var(--border-color) !important;
+    font-weight: 600 !important;
+}
+
+.table tbody tr:hover {
+    background-color: rgba(236, 72, 153, 0.05) !important;
+}
+
+.table td {
+    border-color: var(--border-color) !important;
+}
+
+/* Action Buttons in Tables */
+.table .btn-sm {
+    margin: 0 2px;
+}
+
+.table .btn-edit {
+    background-color: var(--info-color) !important;
+    border-color: var(--info-color) !important;
+}
+
+.table .btn-edit:hover {
+    background-color: #0891b2 !important;
+}
+
+.table .btn-delete {
+    background-color: var(--danger-color) !important;
+    border-color: var(--danger-color) !important;
+}
+
+.table .btn-delete:hover {
+    background-color: #dc2626 !important;
+}
+
+/* Cards in Admin Pages */
+.card-style {
+    border: 1px solid var(--border-color) !important;
+    background-color: white !important;
+    border-radius: 8px !important;
+}
+
+.card-style.mb-30 {
+    margin-bottom: 30px !important;
+}
+
+/* Title Styling */
+.title h2,
+.title h3 {
+    color: var(--dark-text) !important;
+    font-weight: 700 !important;
+}
+
+/* Breadcrumb */
+.breadcrumb {
+    background-color: transparent !important;
+    padding: 0 !important;
+}
+
+.breadcrumb-item.active {
+    color: var(--primary-color) !important;
+    font-weight: 500 !important;
+}
+
+.breadcrumb-item a {
+    color: var(--primary-color) !important;
+    text-decoration: none !important;
+}
+
+.breadcrumb-item a:hover {
+    color: var(--primary-dark) !important;
+    text-decoration: underline !important;
+}
+
+/* Input & Form Fields in Admin */
+.input-style input,
+.input-style textarea,
+.select-style select {
+    border-color: var(--border-color) !important;
+}
+
+.input-style input:focus,
+.input-style textarea:focus,
+.select-style select:focus {
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 0 0 0.2rem rgba(236, 72, 153, 0.25) !important;
+}
+
+/* Status Badges */
+.status-badge {
+    border-radius: 20px !important;
+    padding: 4px 12px !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+}
+
+.status-badge.active {
+    background-color: rgba(16, 185, 129, 0.1) !important;
+    color: var(--success-color) !important;
+}
+
+.status-badge.inactive {
+    background-color: rgba(107, 114, 128, 0.1) !important;
+    color: #6b7280 !important;
+}
+
+/* Modal Overrides */
+.modal-header {
+    background-color: var(--primary-color) !important;
+    color: white !important;
+    border-color: var(--border-color) !important;
+}
+
+.modal-header.bg-primary {
+    background-color: var(--primary-color) !important;
+}
+
+.modal-body {
+    background-color: white !important;
+}
+
+.modal-footer {
+    background-color: var(--light-bg) !important;
+    border-color: var(--border-color) !important;
+}
+
+/* Dropdown Menu */
+.dropdown-menu {
+    border-color: var(--border-color) !important;
+    box-shadow: 0 4px 12px rgba(236, 72, 153, 0.1) !important;
+}
+
+.dropdown-item.active,
+.dropdown-item:active {
+    background-color: var(--primary-color) !important;
+    color: white !important;
+}
+
+.dropdown-item:hover {
+    background-color: rgba(236, 72, 153, 0.1) !important;
+    color: var(--primary-color) !important;
+}
+
+/* List Group Items */
+.list-group-item.active {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+}
+
+/* Alert Styling */
+.alert-primary {
+    background-color: rgba(236, 72, 153, 0.1) !important;
+    color: var(--primary-dark) !important;
+    border-color: var(--primary-color) !important;
+}
+
+.alert-success {
+    background-color: rgba(16, 185, 129, 0.1) !important;
+    color: #065f46 !important;
+    border-color: var(--success-color) !important;
+}
+
+.alert-warning {
+    background-color: rgba(245, 158, 11, 0.1) !important;
+    color: #78350f !important;
+    border-color: var(--warning-color) !important;
+}
+
+.alert-danger {
+    background-color: rgba(239, 68, 68, 0.1) !important;
+    color: #7f1d1d !important;
+    border-color: var(--danger-color) !important;
+}
+
+/* Search & Filter Elements */
+.search-input {
+    border-color: var(--border-color) !important;
+}
+
+.search-input:focus {
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 0 0 0.2rem rgba(236, 72, 153, 0.25) !important;
+}
+
+/* Spinner/Loading */
+.spinner-border {
+    color: var(--primary-color) !important;
+}
+
+/* File Input */
+.form-control[type="file"] {
+    border-color: var(--border-color) !important;
+}
+
+.form-control[type="file"]:focus {
+    border-color: var(--primary-color) !important;
+}
+
+/* Checkbox & Radio */
+.form-check-input:checked {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+}
+
+.form-check-input:focus {
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 0 0 0.25rem rgba(236, 72, 153, 0.25) !important;
+}
+
+/* Range Input */
+.form-range::-webkit-slider-thumb {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+}
+
+.form-range::-moz-range-thumb {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+}
+
+/* Switch Toggle */
+.form-switch .form-check-input:checked {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+}
+
+/* Toast Notifications */
+.toast-header {
+    background-color: var(--primary-color) !important;
+    color: white !important;
+}
+
+/* Tab Navigation */
+.nav-tabs .nav-link.active {
+    background-color: var(--primary-color) !important;
+    color: white !important;
+    border-color: var(--primary-color) !important;
+}
+
+.nav-tabs .nav-link:hover {
+    border-color: var(--primary-color) !important;
+    color: var(--primary-color) !important;
+}
+
+/* Stats/Cards */
+.stat-card {
+    border-left: 4px solid var(--primary-color) !important;
+}
+
+.stat-card:hover {
+    box-shadow: 0 10px 25px rgba(236, 72, 153, 0.15) !important;
+}
+
+/* ========== Print Styles ========== */
+@media print {
+    .btn-primary {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+    }
+}
