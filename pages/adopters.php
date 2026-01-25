@@ -3,6 +3,11 @@ include_once '../includes/header.php';
 include_once BASE_PATH . 'includes/sidebar.php';
 ?>
 
+<?php
+$adopters = mysqli_query($conn, "SELECT * FROM adopter")->fetch_all(MYSQLI_ASSOC);
+?>
+
+
 <body>
     <!-- ======== Preloader =========== -->
     <div id="preloader" style="display: none;">
@@ -48,26 +53,24 @@ include_once BASE_PATH . 'includes/sidebar.php';
                     </div>
                     <!-- end row -->
                     <div class="card-style mb-30">
-                        <h6 class="mb-10">Data Table</h6>
-                        <p class="text-sm mb-20">
-                            For basic styling—light padding and only horizontal
-                            dividers—use the class table.
-                        </p>
+                        <a href="<?= BASE_URL ?>pages/adopters-add.php"
+                            class="main-btn btn-sm primary-btn btn-hover">Add
+                            Adopter</a>
                         <div class="table-wrapper table-responsive">
                             <table class="table">
                                 <thead>
                                     <tr>
                                         <th class="lead-info">
-                                            <h6>Lead</h6>
+                                            <h6>Name</h6>
                                         </th>
                                         <th class="lead-email">
-                                            <h6>Email</h6>
+                                            <h6>Contact</h6>
                                         </th>
                                         <th class="lead-phone">
-                                            <h6>Phone No</h6>
+                                            <h6>Gender</h6>
                                         </th>
                                         <th class="lead-company">
-                                            <h6>Company</h6>
+                                            <h6>Address</h6>
                                         </th>
                                         <th>
                                             <h6>Action</h6>
@@ -76,35 +79,40 @@ include_once BASE_PATH . 'includes/sidebar.php';
                                     <!-- end table row-->
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td class="min-width">
-                                            <div class="lead">
-                                                <div class="lead-image">
-                                                    <img src="assets/images/lead/lead-1.png" alt="">
-                                                </div>
+                                    <?php foreach ($adopters as $adopter): ?>
+                                        <tr>
+                                            <td class="min-width">
                                                 <div class="lead-text">
-                                                    <p>Courtney Henry</p>
+                                                    <p><?= $adopter['name'] ?></p>
                                                 </div>
-                                            </div>
-                                        </td>
-                                        <td class="min-width">
-                                            <p><a href="#0">yourmail@gmail.com</a></p>
-                                        </td>
-                                        <td class="min-width">
-                                            <p>(303)555 3343523</p>
-                                        </td>
-                                        <td class="min-width">
-                                            <p>UIdeck digital agency</p>
-                                        </td>
-                                        <td>
-                                            <div class="action">
-                                                <button class="text-danger">
-                                                    <i class="lni lni-trash-can"></i>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    
+                                            </td>
+                                            <td class="min-width">
+                                                <p><a href="#0"><?= $adopter['contact'] ?></a></p>
+                                            </td>
+                                            <td class="min-width">
+                                                <p><?= $adopter['gender'] ?></p>
+                                            </td>
+                                            <td class="min-width">
+                                                <p><?= $adopter['street_address'] ?>, <?= $adopter['city'] ?></p>
+                                            </td>
+                                            <td>
+                                                <div class="action">
+                                                    <a href="<?= BASE_URL ?>pages/adopters-edit.php?id=<?= $adopter['id'] ?>"
+                                                        class="text-success me-2">
+                                                        <i class="lni lni-pencil-alt"></i>
+                                                    </a>
+                                                    <form action="<?= BASE_URL ?>actions/adopter-actions.php" method="post">
+                                                        <input type="hidden" name="adopter_id" value="<?= $adopter['id'] ?>">
+                                                        <input type="hidden" name="action" value="delete">
+                                                        <button class="text-danger" type="submit" name="submit"
+                                                            value="submit">
+                                                            <i class="lni lni-trash-can"></i>
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
                                 </tbody>
                             </table>
                             <!-- end table -->
@@ -118,4 +126,4 @@ include_once BASE_PATH . 'includes/sidebar.php';
         </section>
         <!-- ========== section end ========== -->
 
-<?php include_once BASE_PATH . 'includes/footer.php'; ?>
+        <?php include_once BASE_PATH . 'includes/footer.php'; ?>
