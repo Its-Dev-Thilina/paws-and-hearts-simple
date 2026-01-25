@@ -1,6 +1,5 @@
 <?php
 include_once '../includes/header.php';
-include_once BASE_PATH . 'includes/sidebar.php';
 ?>
 
 
