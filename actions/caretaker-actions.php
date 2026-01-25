@@ -28,33 +28,28 @@ if ($action == "store") {
 
 if ($action == "update") {
     $id = (int) $_POST['id'];
-    
-    if($_FILES['image']['error'] === UPLOAD_ERR_NO_FILE){
-        $uploadFilePath = $_POST['image_path'];
-    } else {
-        $uploadFilePath = uploadImage($_FILES['image']);
-    }
 
-    $name = $_POST['pet_name'];
-    $specie = $_POST['pet_specie'];
-    $breed = $_POST['breed'];
-    $image_path = $uploadFilePath;
+    $name = $_POST['caretaker_name'];
+    $contact = $_POST['contact'];
+    $experience = $_POST['experience'];
+    $dob = $_POST['dob'];
+    $gender = $_POST['gender'];
 
     mysqli_query(
         $conn,
-        "UPDATE pets SET name='$name', pet_specie='$specie', breed='$breed', image_path='$image_path' WHERE id=$id"
+        "UPDATE caretaker SET name='$name', contact='$contact', experience='$experience', dob='$dob', gender='$gender' WHERE id=$id"
     );
 
-    header('Location: ' . BASE_URL . 'pages/pets.php');
+    header('Location: ' . BASE_URL . 'pages/caretakers.php');
     exit;
 }
 
 if ($action == "delete") {
-    $id = (int) $_POST['pet_id'];
+    $id = (int) $_POST['caretaker_id'];
 
-    mysqli_query($conn, "DELETE FROM pets WHERE id=$id");
+    mysqli_query($conn, "DELETE FROM caretaker WHERE id=$id");
 
-    header('Location: ' . BASE_URL . 'pages/pets.php');
+    header('Location: ' . BASE_URL . 'pages/caretakers.php');
     exit;
 }
 
