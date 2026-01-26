@@ -1,3 +1,5 @@
+<?php include_once __DIR__ . '/config/config.php'; ?>
+
 <header class="header" style="box-shadow: none;">
     <div class="container-fluid">
         <div class="row">
@@ -43,7 +45,12 @@
                             </li>
                             <li class="divider"></li>
                             <li>
-                                <a href="#0"> <i class="lni lni-exit"></i> Sign Out </a>
+                                <form action="<?= BASE_PATH ?>actions/auth-actions.php" method="post">
+                                    <input type="hidden" name="action" value="logout">
+                                    <button type="submit" name="submit" value="submit" class="dropdown-item">
+                                        <i class="lni lni-exit"></i> Sign Out
+                                    </button>
+                                </form>
                             </li>
                         </ul>
                     </div>

@@ -39,25 +39,26 @@
                                 Start creating the best possible user experience for you
                                 customers.
                             </p>
-                            <form action="#">
+                            <form action="./actions/auth-actions.php" method="post">
+                                <input type="hidden" name="action" value="login">
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="input-style-1">
                                             <label>Email</label>
-                                            <input type="email" placeholder="Email">
+                                            <input type="email" placeholder="Email" name="email">
                                         </div>
                                     </div>
                                     <!-- end col -->
                                     <div class="col-12">
                                         <div class="input-style-1">
                                             <label>Password</label>
-                                            <input type="password" placeholder="Password">
+                                            <input type="password" placeholder="Password" name="password">
                                         </div>
                                     </div>
                                     <!-- end col -->
                                     <div class="col-12">
                                         <div class="button-group d-flex justify-content-center flex-wrap">
-                                            <button class="main-btn primary-btn btn-hover w-100 text-center">
+                                            <button type="submit" value="submit" name="submit" class="main-btn primary-btn btn-hover w-100 text-center">
                                                 Sign In
                                             </button>
                                         </div>

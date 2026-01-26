@@ -1,6 +1,19 @@
 <?php
-include_once 'includes/header.php';
+include_once __DIR__ . '/config/config.php';
+include_once BASE_PATH . '/config/database.php';
 ?>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Paws And Hearts</title>
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/lineicons.css" />
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/materialdesignicons.min.css" />
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/fullcalendar.css" />
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/main.css" />
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/custom-theme.css" />
+</head>
 
 <body>
     <!-- ======== Preloader =========== -->

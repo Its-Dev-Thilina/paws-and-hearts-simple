@@ -13,17 +13,22 @@ if (!$submit || !$action) {
 
 if ($action == "store") {
 
-    $uploadFilePath = uploadImage($_FILES['image']);
+    $username = $_POST['username'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $password = $_POST['password_confirm'];
 
-    $name = $_POST['pet_name'];
-    $specie = $_POST['pet_specie'];
-    $breed = $_POST['breed'];
-    $image_path = $uploadFilePath;
+    if($password !== $password) {
+        header('Location: ' . BASE_URL . 'pages/users.php');
+        exit;
+    }
 
-    $query = "INSERT INTO pets (name, image_path, pet_specie, breed) VALUES ('$name', '$image_path', '$specie', '$breed')";
+    $hased_password = password_hash($password, PASSWORD_DEFAULT);
+
+    $query = "INSERT INTO user (username, email , password) VALUES ('$username', '$email', '$hased_password')";
     mysqli_query($conn, $query);
 
-    header('Location: ' . BASE_URL . 'pages/pets.php');
+    header('Location: ' . BASE_URL . 'pages/users.php');
     exit;
 }
 
@@ -57,23 +62,4 @@ if ($action == "delete") {
 
     header('Location: ' . BASE_URL . 'pages/pets.php');
     exit;
-}
-
-
-function uploadImage($file)
-{
-    $uploadDir = BASE_PATH . '/assets/uploads/pets/';
-
-    if (!is_dir($uploadDir)) {
-        mkdir($uploadDir, 0755, true);
-    }
-
-    $fileTmp  = $file['tmp_name'];
-    $fileName = basename($file['name']);
-
-    $uploadFilePath = 'assets/uploads/pets/' . $fileName;
-
-    move_uploaded_file($fileTmp, $uploadDir . $fileName);
-
-    return $uploadFilePath;
 }

@@ -1,8 +1,7 @@
 <?php
-session_start();
 include_once __DIR__ . '/../config/database.php';
 include_once __DIR__ . '/../config/config.php';
-// include_once BASE_PATH.'/includes/auth.php';
+include_once BASE_PATH.'/includes/auth.php';
 ?>
 <!DOCTYPE html>
 <html>
