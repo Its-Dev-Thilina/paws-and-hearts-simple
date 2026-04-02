@@ -12,12 +12,11 @@ if (!$submit || !$action) {
 }
 
 if ($action == "store") {
-
-    $name = $_POST['adopter_name'];
-    $contact = $_POST['contact'];
-    $gender = $_POST['gender'];
-    $street_address = $_POST['street_address'];
-    $city = $_POST['city'];
+    $name = mysqli_real_escape_string($conn, $_POST['adopter_name']);
+    $contact = mysqli_real_escape_string($conn, $_POST['contact']);
+    $gender = mysqli_real_escape_string($conn, $_POST['gender']);
+    $street_address = mysqli_real_escape_string($conn, $_POST['street_address']);
+    $city = mysqli_real_escape_string($conn, $_POST['city']);
 
     $query = "INSERT INTO adopter (name, gender, contact, street_address, city) VALUES ('$name', '$gender', '$contact', '$street_address', '$city')";
     mysqli_query($conn, $query);
@@ -29,11 +28,11 @@ if ($action == "store") {
 if ($action == "update") {
     $id = (int) $_POST['id'];
 
-    $name = $_POST['adopter_name'];
-    $contact = $_POST['contact'];
-    $gender = $_POST['gender'];
-    $street_address = $_POST['street_address'];
-    $city = $_POST['city'];
+    $name = mysqli_real_escape_string($conn, $_POST['adopter_name']);
+    $contact = mysqli_real_escape_string($conn, $_POST['contact']);
+    $gender = mysqli_real_escape_string($conn, $_POST['gender']);
+    $street_address = mysqli_real_escape_string($conn, $_POST['street_address']);
+    $city = mysqli_real_escape_string($conn, $_POST['city']);
 
     mysqli_query(
         $conn,

@@ -52,60 +52,59 @@ $adopters = mysqli_query($conn, "SELECT * FROM adopter")->fetch_all(MYSQLI_ASSOC
                         <!-- end col -->
                     </div>
                     <!-- end row -->
-                    <div class="card-style mb-30">
-                        <a href="<?= BASE_URL ?>pages/adopters-add.php"
-                            class="main-btn btn-sm primary-btn btn-hover">Add
-                            Adopter</a>
+                    <div class="d-flex justify-content-between flex-wrap align-items-center mb-4">
+                        <p class="text-sm text-muted mb-2 mb-md-0">Manage all pet adopters.</p>
+                        <a href="<?= BASE_URL ?>pages/adopters-add.php" class="main-btn primary-btn btn-hover rounded-pill px-4 shadow-sm shadow-primary">
+                            <i class="lni lni-plus me-2"></i> Add Adopter
+                        </a>
+                    </div>
+                    
+                    <div class="card-style mb-30 border-0 shadow-sm p-0 overflow-hidden" style="border-radius: 16px;">
                         <div class="table-wrapper table-responsive">
-                            <table class="table">
+                            <table class="table mb-0">
                                 <thead>
                                     <tr>
-                                        <th class="lead-info">
-                                            <h6>Name</h6>
-                                        </th>
-                                        <th class="lead-email">
-                                            <h6>Contact</h6>
-                                        </th>
-                                        <th class="lead-phone">
-                                            <h6>Gender</h6>
-                                        </th>
-                                        <th class="lead-company">
-                                            <h6>Address</h6>
-                                        </th>
-                                        <th>
-                                            <h6>Action</h6>
-                                        </th>
+                                        <th class="ps-4"><h6>Adopter</h6></th>
+                                        <th><h6>Contact</h6></th>
+                                        <th><h6>Gender</h6></th>
+                                        <th><h6>Location</h6></th>
+                                        <th class="text-end pe-4"><h6>Actions</h6></th>
                                     </tr>
-                                    <!-- end table row-->
                                 </thead>
                                 <tbody>
                                     <?php foreach ($adopters as $adopter): ?>
                                         <tr>
-                                            <td class="min-width">
-                                                <div class="lead-text">
-                                                    <p><?= $adopter['name'] ?></p>
+                                            <td class="min-width ps-4">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="avatar bg-primary-light text-primary rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px; font-weight: bold; background: rgba(236, 72, 153, 0.1);">
+                                                        <?= strtoupper(substr($adopter['name'], 0, 1)) ?>
+                                                    </div>
+                                                    <div>
+                                                        <h6 class="mb-0 text-dark" style="font-weight: 700;"><?= htmlspecialchars($adopter['name']) ?></h6>
+                                                    </div>
                                                 </div>
                                             </td>
                                             <td class="min-width">
-                                                <p><a href="#0"><?= $adopter['contact'] ?></a></p>
+                                                <p class="text-sm font-weight-500 mb-0 d-flex align-items-center">
+                                                    <i class="lni lni-phone text-muted me-2"></i> <?= htmlspecialchars($adopter['contact']) ?>
+                                                </p>
                                             </td>
                                             <td class="min-width">
-                                                <p><?= $adopter['gender'] ?></p>
+                                                <span class="badge bg-light text-dark border px-3 py-2 rounded-pill"><?= htmlspecialchars($adopter['gender']) ?></span>
                                             </td>
                                             <td class="min-width">
-                                                <p><?= $adopter['street_address'] ?>, <?= $adopter['city'] ?></p>
+                                                <p class="text-sm text-muted mb-0"><i class="lni lni-map-marker me-1"></i> <?= htmlspecialchars($adopter['street_address']) ?>, <?= htmlspecialchars($adopter['city']) ?></p>
                                             </td>
-                                            <td>
-                                                <div class="action">
+                                            <td class="text-end pe-4">
+                                                <div class="action d-flex justify-content-end">
                                                     <a href="<?= BASE_URL ?>pages/adopters-edit.php?id=<?= $adopter['id'] ?>"
-                                                        class="text-success me-2">
+                                                        class="text-info me-3 bg-light rounded-circle d-flex" style="width: 35px; height: 35px; align-items: center; justify-content: center;">
                                                         <i class="lni lni-pencil-alt"></i>
                                                     </a>
-                                                    <form action="<?= BASE_URL ?>actions/adopter-actions.php" method="post">
+                                                    <form action="<?= BASE_URL ?>actions/adopter-actions.php" method="post" onsubmit="return confirm('Delete adopter?');" class="m-0">
                                                         <input type="hidden" name="adopter_id" value="<?= $adopter['id'] ?>">
                                                         <input type="hidden" name="action" value="delete">
-                                                        <button class="text-danger" type="submit" name="submit"
-                                                            value="submit">
+                                                        <button class="text-danger bg-light rounded-circle d-flex border-0" type="submit" name="submit" value="submit" style="width: 35px; height: 35px; align-items: center; justify-content: center;">
                                                             <i class="lni lni-trash-can"></i>
                                                         </button>
                                                     </form>
@@ -113,9 +112,16 @@ $adopters = mysqli_query($conn, "SELECT * FROM adopter")->fetch_all(MYSQLI_ASSOC
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
+                                    
+                                    <?php if(empty($adopters)): ?>
+                                    <tr>
+                                        <td colspan="5" class="text-center py-5 text-muted">
+                                            No adopters found.
+                                        </td>
+                                    </tr>
+                                    <?php endif; ?>
                                 </tbody>
                             </table>
-                            <!-- end table -->
                         </div>
                     </div>
 

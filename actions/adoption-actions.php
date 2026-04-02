@@ -12,43 +12,64 @@ if (!$submit || !$action) {
 }
 
 if ($action == "store") {
+    $pet_id = (int)$_POST['pet_id'];
+    $caretaker_id = (int)$_POST['caretaker_id'];
+    $adopter_id = (int)$_POST['adopter_id'];
 
-    $name = $_POST['adopter_name'];
-    $contact = $_POST['contact'];
-    $gender = $_POST['gender'];
-    $street_address = $_POST['street_address'];
-    $city = $_POST['city'];
-
-    $query = "INSERT INTO adopter (name, gender, contact, street_address, city) VALUES ('$name', '$gender', '$contact', '$street_address', '$city')";
+    $query = "INSERT INTO adoption (pet, caretaker, adopter) VALUES ($pet_id, $caretaker_id, $adopter_id)";
     mysqli_query($conn, $query);
 
-    header('Location: ' . BASE_URL . 'pages/adopters.php');
+    mysqli_query($conn, "UPDATE pets SET status=0 WHERE id=$pet_id");
+
+    header('Location: ' . BASE_URL . 'pages/adoption.php');
     exit;
 }
 
 if ($action == "update") {
     $id = (int) $_POST['id'];
 
-    $name = $_POST['adopter_name'];
-    $contact = $_POST['contact'];
-    $gender = $_POST['gender'];
-    $street_address = $_POST['street_address'];
-    $city = $_POST['city'];
+    $pet_id = (int)$_POST['pet_id'];
+    $caretaker_id = (int)$_POST['caretaker_id'];
+    $adopter_id = (int)$_POST['adopter_id'];
+
+    $old_pet_query = mysqli_query($conn, "SELECT pet FROM adoption WHERE id=$id");
+    if ($old_pet_query && mysqli_num_rows($old_pet_query) > 0) {
+        $old_pet = mysqli_fetch_assoc($old_pet_query)['pet'];
+        if ($old_pet != $pet_id) {
+            mysqli_query($conn, "UPDATE pets SET status=1 WHERE id=$old_pet");
+            mysqli_query($conn, "UPDATE pets SET status=0 WHERE id=$pet_id");
+        }
+    }
 
     mysqli_query(
         $conn,
-        "UPDATE adopter SET name='$name', contact='$contact', gender='$gender', street_address='$street_address', city='$city' WHERE id=$id"
+        "UPDATE adoption SET pet=$pet_id, caretaker=$caretaker_id, adopter=$adopter_id WHERE id=$id"
     );
 
-    header('Location: ' . BASE_URL . 'pages/adopters.php');
+    header('Location: ' . BASE_URL . 'pages/adoption.php');
+    exit;
+}
+
+if ($action == "approve") {
+    $id = (int) $_POST['adoption_id'];
+
+    mysqli_query($conn, "UPDATE adoption SET status=1 WHERE id=$id");
+
+    header('Location: ' . BASE_URL . 'pages/adoption.php');
     exit;
 }
 
 if ($action == "delete") {
-    $id = (int) $_POST['adopter_id'];
+    $id = (int) $_POST['adoption_id'];
 
-    mysqli_query($conn, "DELETE FROM adopter WHERE id=$id");
+    $old_pet_query = mysqli_query($conn, "SELECT pet FROM adoption WHERE id=$id");
+    if ($old_pet_query && mysqli_num_rows($old_pet_query) > 0) {
+        $old_pet = mysqli_fetch_assoc($old_pet_query)['pet'];
+        mysqli_query($conn, "UPDATE pets SET status=1 WHERE id=$old_pet");
+    }
 
-    header('Location: ' . BASE_URL . 'pages/adopters.php');
+    mysqli_query($conn, "DELETE FROM adoption WHERE id=$id");
+
+    header('Location: ' . BASE_URL . 'pages/adoption.php');
     exit;
 }

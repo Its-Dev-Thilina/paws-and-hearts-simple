@@ -12,20 +12,19 @@ if (!$submit || !$action) {
 }
 
 if ($action == "store") {
-
-    $username = $_POST['username'];
-    $email = $_POST['email'];
+    $username = mysqli_real_escape_string($conn, $_POST['username']);
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
     $password = $_POST['password'];
-    $password = $_POST['password_confirm'];
+    $password_confirm = $_POST['password_confirm'];
 
-    if($password !== $password) {
+    if($password !== $password_confirm) {
         header('Location: ' . BASE_URL . 'pages/users.php');
         exit;
     }
 
-    $hased_password = password_hash($password, PASSWORD_DEFAULT);
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-    $query = "INSERT INTO user (username, email , password) VALUES ('$username', '$email', '$hased_password')";
+    $query = "INSERT INTO user (username, email, password) VALUES ('$username', '$email', '$hashed_password')";
     mysqli_query($conn, $query);
 
     header('Location: ' . BASE_URL . 'pages/users.php');
@@ -35,31 +34,27 @@ if ($action == "store") {
 if ($action == "update") {
     $id = (int) $_POST['id'];
     
-    if($_FILES['image']['error'] === UPLOAD_ERR_NO_FILE){
-        $uploadFilePath = $_POST['image_path'];
+    $username = mysqli_real_escape_string($conn, $_POST['username']);
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
+
+    if (!empty($_POST['password'])) {
+        if ($_POST['password'] === $_POST['password_confirm']) {
+            $hashed_password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+            mysqli_query($conn, "UPDATE user SET username='$username', email='$email', password='$hashed_password' WHERE id=$id");
+        }
     } else {
-        $uploadFilePath = uploadImage($_FILES['image']);
+        mysqli_query($conn, "UPDATE user SET username='$username', email='$email' WHERE id=$id");
     }
 
-    $name = $_POST['pet_name'];
-    $specie = $_POST['pet_specie'];
-    $breed = $_POST['breed'];
-    $image_path = $uploadFilePath;
-
-    mysqli_query(
-        $conn,
-        "UPDATE pets SET name='$name', pet_specie='$specie', breed='$breed', image_path='$image_path' WHERE id=$id"
-    );
-
-    header('Location: ' . BASE_URL . 'pages/pets.php');
+    header('Location: ' . BASE_URL . 'pages/users.php');
     exit;
 }
 
 if ($action == "delete") {
-    $id = (int) $_POST['pet_id'];
+    $id = (int) $_POST['user_id'];
 
-    mysqli_query($conn, "DELETE FROM pets WHERE id=$id");
+    mysqli_query($conn, "DELETE FROM user WHERE id=$id");
 
-    header('Location: ' . BASE_URL . 'pages/pets.php');
+    header('Location: ' . BASE_URL . 'pages/users.php');
     exit;
 }

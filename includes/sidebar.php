@@ -1,91 +1,117 @@
+<?php $current_page = basename($_SERVER['PHP_SELF']); ?>
 <!-- ======== sidebar-nav start =========== -->
 <aside class="sidebar-nav-wrapper">
-  <div class="navbar-logo">
-    <a href="index.html">
-      <img src="<?= BASE_URL ?>assets/images/logo/logo.svg" alt="logo">
+  <!-- Brand Logo Area -->
+  <div class="sidebar-brand">
+    <a href="<?= BASE_URL ?>pages/dashboard.php" class="brand-link">
+      <div class="brand-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M4.5 11.5C5.33 11.5 6 10.83 6 10S5.33 8.5 4.5 8.5 3 9.17 3 10 3.67 11.5 4.5 11.5M7.5 7C8.33 7 9 6.33 9 5.5S8.33 4 7.5 4 6 4.67 6 5.5 6.67 7 7.5 7M16.5 7C17.33 7 18 6.33 18 5.5S17.33 4 16.5 4 15 4.67 15 5.5 15.67 7 16.5 7M19.5 11.5C20.33 11.5 21 10.83 21 10S20.33 8.5 19.5 8.5 18 9.17 18 10 18.67 11.5 19.5 11.5M17.34 14.86C16.27 13.33 13.93 12 12 12S7.73 13.33 6.66 14.86C6.18 15.55 6 16.35 6 17.15C6 19.28 7.8 21 10 21H14C16.2 21 18 19.28 18 17.15C18 16.35 17.82 15.55 17.34 14.86Z"/>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <span class="brand-name">Paws & Hearts</span>
+        <span class="brand-tagline">Admin Panel</span>
+      </div>
     </a>
   </div>
+
+  <!-- Navigation -->
   <nav class="sidebar-nav">
     <ul>
+      <!-- Main Section -->
+      <li class="nav-section-title">Main</li>
 
       <li class="nav-item">
-        <a href="<?= BASE_URL ?>pages/dashboard.php">
-          <span class="icon">
-             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M8.74999 18.3333C12.2376 18.3333 15.1364 15.8128 15.7244 12.4941C15.8448 11.8143 15.2737 11.25 14.5833 11.25H9.99999C9.30966 11.25 8.74999 10.6903 8.74999 10V5.41666C8.74999 4.7263 8.18563 4.15512 7.50586 4.27556C4.18711 4.86357 1.66666 7.76243 1.66666 11.25C1.66666 15.162 4.83797 18.3333 8.74999 18.3333Z">
-              </path>
-              <path
-                d="M17.0833 10C17.7737 10 18.3432 9.43708 18.2408 8.75433C17.7005 5.14918 14.8508 2.29947 11.2457 1.75912C10.5629 1.6568 10 2.2263 10 2.91665V9.16666C10 9.62691 10.3731 10 10.8333 10H17.0833Z">
-              </path>
-            </svg>
-          </span>
-          <span class="text">Dashboard</span>
-        </a>
-      </li>
-
-      <li class="nav-item">
-        <a href="<?= BASE_URL ?>pages/pets.php">
-          <span class="icon">
-             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><title>cat</title><path d="M12,8L10.67,8.09C9.81,7.07 7.4,4.5 5,4.5C5,4.5 3.03,7.46 4.96,11.41C4.41,12.24 4.07,12.67 4,13.66L2.07,13.95L2.28,14.93L4.04,14.67L4.18,15.38L2.61,16.32L3.08,17.21L4.53,16.32C5.68,18.76 8.59,20 12,20C15.41,20 18.32,18.76 19.47,16.32L20.92,17.21L21.39,16.32L19.82,15.38L19.96,14.67L21.72,14.93L21.93,13.95L20,13.66C19.93,12.67 19.59,12.24 19.04,11.41C20.97,7.46 19,4.5 19,4.5C16.6,4.5 14.19,7.07 13.33,8.09L12,8M9,11A1,1 0 0,1 10,12A1,1 0 0,1 9,13A1,1 0 0,1 8,12A1,1 0 0,1 9,11M15,11A1,1 0 0,1 16,12A1,1 0 0,1 15,13A1,1 0 0,1 14,12A1,1 0 0,1 15,11M11,14H13L12.3,15.39C12.5,16.03 13.06,16.5 13.75,16.5A1.5,1.5 0 0,0 15.25,15H15.75A2,2 0 0,1 13.75,17C13,17 12.35,16.59 12,16V16H12C11.65,16.59 11,17 10.25,17A2,2 0 0,1 8.25,15H8.75A1.5,1.5 0 0,0 10.25,16.5C10.94,16.5 11.5,16.03 11.7,15.39L11,14Z" /></svg>
-          </span>
-          <span class="text">Pets</span>
-        </a>
-      </li>
-
-      <li class="nav-item">
-        <a href="<?= BASE_URL ?>pages/caretakers.php">
-          <span class="icon">
-             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><title>mother-heart</title><path d="M12 2C13.66 2 15 3.34 15 5S13.66 8 12 8 9 6.66 9 5 10.34 2 12 2M20 18L18 12.56C17.65 11.57 17.34 10.71 16 10C14.63 9.3 13.63 9 12 9C10.39 9 9.39 9.3 8 10C6.68 10.71 6.37 11.57 6 12.56L4 18C3.77 19.13 6.38 20.44 8.13 21.19C9.34 21.72 10.64 22 12 22C13.38 22 14.67 21.72 15.89 21.19C17.64 20.44 20.25 19.13 20 18M15.42 17.5L12 21L8.58 17.5C8.22 17.12 8 16.61 8 16.05C8 14.92 8.9 14 10 14C10.55 14 11.06 14.23 11.42 14.61L12 15.2L12.58 14.6C12.94 14.23 13.45 14 14 14C15.11 14 16 14.92 16 16.05C16 16.61 15.78 17.13 15.42 17.5Z" /></svg>
-          </span>
-          <span class="text">Caretakers</span>
-        </a>
-      </li>
-
-      <li class="nav-item">
-        <a href="<?= BASE_URL ?>pages/adopters.php">
-          <span class="icon">
-             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><title>hand-heart</title><path d="M20 17Q20.86 17 21.45 17.6T22.03 19L14 22L7 20V11H8.95L16.22 13.69Q17 14 17 14.81 17 15.28 16.66 15.63T15.8 16H13L11.25 15.33L10.92 16.27L13 17H20M16 3.23Q17.06 2 18.7 2 20.06 2 21 3T22 5.3Q22 6.33 21 7.76T19.03 10.15 16 13Q13.92 11.11 12.94 10.15T10.97 7.76 10 5.3Q10 3.94 10.97 3T13.31 2Q14.91 2 16 3.23M.984 11H5V22H.984V11Z" /></svg>
-          </span>
-          <span class="text">Adopters</span>
-        </a>
-      </li>
-
-       <li class="nav-item">
-        <a href="<?= BASE_URL ?>pages/users.php">
-          <span class="icon">
-             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><title>account-group</title><path d="M12,5.5A3.5,3.5 0 0,1 15.5,9A3.5,3.5 0 0,1 12,12.5A3.5,3.5 0 0,1 8.5,9A3.5,3.5 0 0,1 12,5.5M5,8C5.56,8 6.08,8.15 6.53,8.42C6.38,9.85 6.8,11.27 7.66,12.38C7.16,13.34 6.16,14 5,14A3,3 0 0,1 2,11A3,3 0 0,1 5,8M19,8A3,3 0 0,1 22,11A3,3 0 0,1 19,14C17.84,14 16.84,13.34 16.34,12.38C17.2,11.27 17.62,9.85 17.47,8.42C17.92,8.15 18.44,8 19,8M5.5,18.25C5.5,16.18 8.41,14.5 12,14.5C15.59,14.5 18.5,16.18 18.5,18.25V20H5.5V18.25M0,20V18.5C0,17.11 1.89,15.94 4.45,15.6C3.86,16.28 3.5,17.22 3.5,18.25V20H0M24,20H20.5V18.25C20.5,17.22 20.14,16.28 19.55,15.6C22.11,15.94 24,17.11 24,18.5V20Z" /></svg>
-          </span>
-          <span class="text">Users</span>
-        </a>
-      </li>
-
-      <!-- <li class="nav-item nav-item-has-children">
-        <a href="#0" class="collapsed" data-bs-toggle="collapse" data-bs-target="#ddmenu_2" aria-controls="ddmenu_2"
-          aria-expanded="false" aria-label="Toggle navigation">
-          <span class="icon">
+        <a href="<?= BASE_URL ?>pages/dashboard.php" class="<?= ($current_page == 'dashboard.php') ? 'active' : '' ?>">
+          <span class="nav-icon">
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M11.8097 1.66667C11.8315 1.66667 11.8533 1.6671 11.875 1.66796V4.16667C11.875 5.43232 12.901 6.45834 14.1667 6.45834H16.6654C16.6663 6.48007 16.6667 6.50186 16.6667 6.5237V16.6667C16.6667 17.5872 15.9205 18.3333 15 18.3333H5.00001C4.07954 18.3333 3.33334 17.5872 3.33334 16.6667V3.33334C3.33334 2.41286 4.07954 1.66667 5.00001 1.66667H11.8097ZM6.66668 7.70834C6.3215 7.70834 6.04168 7.98816 6.04168 8.33334C6.04168 8.67851 6.3215 8.95834 6.66668 8.95834H10C10.3452 8.95834 10.625 8.67851 10.625 8.33334C10.625 7.98816 10.3452 7.70834 10 7.70834H6.66668ZM6.04168 11.6667C6.04168 12.0118 6.3215 12.2917 6.66668 12.2917H13.3333C13.6785 12.2917 13.9583 12.0118 13.9583 11.6667C13.9583 11.3215 13.6785 11.0417 13.3333 11.0417H6.66668C6.3215 11.0417 6.04168 11.3215 6.04168 11.6667ZM6.66668 14.375C6.3215 14.375 6.04168 14.6548 6.04168 15C6.04168 15.3452 6.3215 15.625 6.66668 15.625H13.3333C13.6785 15.625 13.9583 15.3452 13.9583 15C13.9583 14.6548 13.6785 14.375 13.3333 14.375H6.66668Z">
-              </path>
-              <path d="M13.125 2.29167L16.0417 5.20834H14.1667C13.5913 5.20834 13.125 4.74197 13.125 4.16667V2.29167Z">
-              </path>
+              <path d="M8.74999 18.3333C12.2376 18.3333 15.1364 15.8128 15.7244 12.4941C15.8448 11.8143 15.2737 11.25 14.5833 11.25H9.99999C9.30966 11.25 8.74999 10.6903 8.74999 10V5.41666C8.74999 4.7263 8.18563 4.15512 7.50586 4.27556C4.18711 4.86357 1.66666 7.76243 1.66666 11.25C1.66666 15.162 4.83797 18.3333 8.74999 18.3333Z"></path>
+              <path d="M17.0833 10C17.7737 10 18.3432 9.43708 18.2408 8.75433C17.7005 5.14918 14.8508 2.29947 11.2457 1.75912C10.5629 1.6568 10 2.2263 10 2.91665V9.16666C10 9.62691 10.3731 10 10.8333 10H17.0833Z"></path>
             </svg>
           </span>
-          <span class="text">Pages</span>
+          <span class="nav-label">Dashboard</span>
         </a>
-        <ul id="ddmenu_2" class="collapse dropdown-nav">
-          <li>
-            <a href="settings.html"> Settings </a>
-          </li>
-          <li>
-            <a href="blank-page.html"> Blank Page </a>
-          </li>
-        </ul>
-      </li> -->
-      
+      </li>
+
+      <!-- Management Section -->
+      <li class="nav-section-title">Management</li>
+
+      <li class="nav-item">
+        <a href="<?= BASE_URL ?>pages/adoption.php" class="<?= (strpos($current_page, 'adoption') !== false) ? 'active' : '' ?>">
+          <span class="nav-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+              <path d="M12.1,18.55L12,18.65L11.89,18.55C7.14,14.24 4,11.39 4,8.5C4,6.5 5.5,5 7.5,5C9.04,5 10.54,6 11.07,7.36H12.93C13.46,6 14.96,5 16.5,5C18.5,5 20,6.5 20,8.5C20,11.39 16.86,14.24 12.1,18.55M16.5,3C14.76,3 13.09,3.81 12,5.08C10.91,3.81 9.24,3 7.5,3C4.42,3 2,5.41 2,8.5C2,12.27 5.4,15.36 10.55,20.03L12,21.35L13.45,20.03C18.6,15.36 22,12.27 22,8.5C22,5.41 19.58,3 16.5,3Z" />
+            </svg>
+          </span>
+          <span class="nav-label">Adoptions</span>
+          <span class="nav-badge">New</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a href="<?= BASE_URL ?>pages/pets.php" class="<?= (strpos($current_page, 'pet') !== false) ? 'active' : '' ?>">
+          <span class="nav-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+              <path d="M4.5 11.5C5.33 11.5 6 10.83 6 10S5.33 8.5 4.5 8.5 3 9.17 3 10 3.67 11.5 4.5 11.5M7.5 7C8.33 7 9 6.33 9 5.5S8.33 4 7.5 4 6 4.67 6 5.5 6.67 7 7.5 7M16.5 7C17.33 7 18 6.33 18 5.5S17.33 4 16.5 4 15 4.67 15 5.5 15.67 7 16.5 7M19.5 11.5C20.33 11.5 21 10.83 21 10S20.33 8.5 19.5 8.5 18 9.17 18 10 18.67 11.5 19.5 11.5M17.34 14.86C16.27 13.33 13.93 12 12 12S7.73 13.33 6.66 14.86C6.18 15.55 6 16.35 6 17.15C6 19.28 7.8 21 10 21H14C16.2 21 18 19.28 18 17.15C18 16.35 17.82 15.55 17.34 14.86Z"/>
+            </svg>
+          </span>
+          <span class="nav-label">Pets</span>
+        </a>
+      </li>
+
+      <!-- People Section -->
+      <li class="nav-section-title">People</li>
+
+      <li class="nav-item">
+        <a href="<?= BASE_URL ?>pages/caretakers.php" class="<?= (strpos($current_page, 'caretaker') !== false) ? 'active' : '' ?>">
+          <span class="nav-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+              <path d="M12 12C14.21 12 16 10.21 16 8S14.21 4 12 4 8 5.79 8 8 9.79 12 12 12M12 14C9.33 14 4 15.34 4 18V20H20V18C20 15.34 14.67 14 12 14Z" />
+            </svg>
+          </span>
+          <span class="nav-label">Caretakers</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a href="<?= BASE_URL ?>pages/adopters.php" class="<?= (strpos($current_page, 'adopter') !== false) ? 'active' : '' ?>">
+          <span class="nav-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+              <path d="M16 17V19H2V17S2 13 9 13 16 17 16 17M12.5 7.5A3.5 3.5 0 1 0 9 11A3.5 3.5 0 0 0 12.5 7.5M15.94 13A5.32 5.32 0 0 1 18 17V19H22V17S22 13.37 15.94 13M15 4A3.39 3.39 0 0 0 13.07 4.59A5 5 0 0 1 13.07 10.41A3.39 3.39 0 0 0 15 11A3.5 3.5 0 0 0 15 4Z" />
+            </svg>
+          </span>
+          <span class="nav-label">Adopters</span>
+        </a>
+      </li>
+
+      <!-- System Section -->
+      <li class="nav-section-title">System</li>
+
+      <li class="nav-item">
+        <a href="<?= BASE_URL ?>pages/users.php" class="<?= (strpos($current_page, 'user') !== false) ? 'active' : '' ?>">
+          <span class="nav-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+              <path d="M12 1L3 5V11C3 16.55 6.84 21.74 12 23C17.16 21.74 21 16.55 21 11V5L12 1M12 11.99H19C18.47 16.11 15.72 19.78 12 20.93V12H5V6.3L12 3.19V11.99Z" />
+            </svg>
+          </span>
+          <span class="nav-label">Users</span>
+        </a>
+      </li>
+
     </ul>
   </nav>
+
+  <!-- Sidebar Footer -->
+  <div class="sidebar-footer">
+    <div class="sidebar-footer-inner">
+      <div class="sidebar-footer-icon">🐾</div>
+      <div class="sidebar-footer-text">
+        <span class="footer-title">Paws & Hearts</span>
+        <span class="footer-version">v1.0.0</span>
+      </div>
+    </div>
+  </div>
 </aside>
 <div class="overlay"></div>
 <!-- ======== sidebar-nav end =========== -->

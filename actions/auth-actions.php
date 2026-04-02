@@ -12,8 +12,8 @@ if (!$submit || !$action) {
 }
 
 if ($action == 'login') {
-    $email = $_POST['email'] ?? null;
-    $password = $_POST['password'] ?? null;
+    $email = mysqli_real_escape_string($conn, $_POST['email'] ?? '');
+    $password = $_POST['password'] ?? '';
 
     $user = mysqli_query($conn, "SELECT * from user WHERE email='$email'")->fetch_assoc();
 

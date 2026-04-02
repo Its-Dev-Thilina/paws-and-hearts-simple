@@ -12,12 +12,11 @@ if (!$submit || !$action) {
 }
 
 if ($action == "store") {
-
-    $name = $_POST['care_name'];
-    $contact = $_POST['contact'];
-    $experience = $_POST['experience'];
-    $dob = $_POST['dob'];
-    $gender = $_POST['gender'];
+    $name = mysqli_real_escape_string($conn, $_POST['care_name']);
+    $contact = mysqli_real_escape_string($conn, $_POST['contact']);
+    $experience = (int)$_POST['experience'];
+    $dob = mysqli_real_escape_string($conn, $_POST['dob']);
+    $gender = mysqli_real_escape_string($conn, $_POST['gender']);
 
     $query = "INSERT INTO caretaker (name, contact, experience, dob, gender) VALUES ('$name', '$contact', '$experience', '$dob', '$gender')";
     mysqli_query($conn, $query);
@@ -29,15 +28,15 @@ if ($action == "store") {
 if ($action == "update") {
     $id = (int) $_POST['id'];
 
-    $name = $_POST['caretaker_name'];
-    $contact = $_POST['contact'];
-    $experience = $_POST['experience'];
-    $dob = $_POST['dob'];
-    $gender = $_POST['gender'];
+    $name = mysqli_real_escape_string($conn, $_POST['caretaker_name']);
+    $contact = mysqli_real_escape_string($conn, $_POST['contact']);
+    $experience = (int)$_POST['experience'];
+    $dob = mysqli_real_escape_string($conn, $_POST['dob']);
+    $gender = mysqli_real_escape_string($conn, $_POST['gender']);
 
     mysqli_query(
         $conn,
-        "UPDATE caretaker SET name='$name', contact='$contact', experience='$experience', dob='$dob', gender='$gender' WHERE id=$id"
+        "UPDATE caretaker SET name='$name', contact='$contact', experience=$experience, dob='$dob', gender='$gender' WHERE id=$id"
     );
 
     header('Location: ' . BASE_URL . 'pages/caretakers.php');
@@ -53,21 +52,4 @@ if ($action == "delete") {
     exit;
 }
 
-
-function uploadImage($file)
-{
-    $uploadDir = BASE_PATH . '/assets/uploads/pets/';
-
-    if (!is_dir($uploadDir)) {
-        mkdir($uploadDir, 0755, true);
-    }
-
-    $fileTmp  = $file['tmp_name'];
-    $fileName = basename($file['name']);
-
-    $uploadFilePath = '/assets/uploads/pets/' . $fileName;
-
-    move_uploaded_file($fileTmp, $uploadDir . $fileName);
-
-    return $uploadFilePath;
-}
+

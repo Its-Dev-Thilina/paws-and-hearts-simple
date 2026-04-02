@@ -1,10 +1,17 @@
 <?php
 include_once '../includes/header.php';
+include_once BASE_PATH . 'includes/sidebar.php';
 include_once BASE_PATH . 'config/database.php';
 ?>
 
 <?php
-    $users = mysqli_query($conn, "SELECT * FROM user")->fetch_all(MYSQLI_ASSOC) ?? "";
+
+$query = "SELECT adoption.id as id, adoption.status as status, pets.name as pet, caretaker.name as caretaker, adopter.name as adopter FROM adoption 
+JOIN pets ON adoption.pet = pets.id 
+JOIN caretaker ON adoption.caretaker = caretaker.id 
+JOIN adopter ON adoption.adopter = adopter.id";
+
+$adoptions = mysqli_query($conn, $query)->fetch_all(MYSQLI_ASSOC);
 ?>
 
 <body>
@@ -30,7 +37,7 @@ include_once BASE_PATH . 'config/database.php';
                     <div class="row align-items-center">
                         <div class="col-md-6">
                             <div class="title">
-                                <h2>Users</h2>
+                                <h2>Adoption</h2>
                             </div>
                         </div>
                         <!-- end col -->
@@ -42,7 +49,7 @@ include_once BASE_PATH . 'config/database.php';
                                             <a href="#0">Dashboard</a>
                                         </li>
                                         <li class="breadcrumb-item active">
-                                            <a href="#0">Users</a>
+                                            <a href="#0">Adoption</a>
                                         </li>
                                     </ol>
                                 </nav>
@@ -52,9 +59,9 @@ include_once BASE_PATH . 'config/database.php';
                     </div>
 
                     <div class="d-flex justify-content-between flex-wrap align-items-center mb-4">
-                        <p class="text-sm text-muted mb-2 mb-md-0">Manage system administrators.</p>
-                        <a href="<?= BASE_URL ?>pages/users-add.php" class="main-btn primary-btn btn-hover rounded-pill px-4 shadow-sm shadow-primary">
-                            <i class="lni lni-plus me-2"></i> Add Administrator
+                        <p class="text-sm text-muted mb-2 mb-md-0">Manage and track all successful adoptions.</p>
+                        <a href="<?= BASE_URL ?>pages/adoption-add.php" class="main-btn primary-btn btn-hover rounded-pill px-4 shadow-sm shadow-primary">
+                            <i class="lni lni-plus me-2"></i> Register Adoption
                         </a>
                     </div>
                     
@@ -63,46 +70,65 @@ include_once BASE_PATH . 'config/database.php';
                             <table class="table mb-0">
                                 <thead>
                                     <tr>
-                                        <th class="ps-4"><h6>User Info</h6></th>
-                                        <th><h6>Email Address</h6></th>
-                                        <th><h6>Role</h6></th>
+                                        <th class="ps-4"><h6>Pet Name</h6></th>
+                                        <th><h6>Adopter</h6></th>
+                                        <th><h6>Assigned Caretaker</h6></th>
+                                        <th><h6>Status</h6></th>
                                         <th class="text-end pe-4"><h6>Actions</h6></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach ($users as $user): ?>
+                                    <?php foreach ($adoptions as $adoption): ?>
                                         <tr>
                                             <td class="min-width ps-4">
                                                 <div class="d-flex align-items-center">
                                                     <div class="avatar bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3 shadow-sm" style="width: 40px; height: 40px; font-weight: bold; background: var(--primary-color) !important;">
-                                                        <?= strtoupper(substr($user['username'], 0, 1)) ?>
+                                                        <i class="lni lni-heart"></i>
                                                     </div>
                                                     <div>
-                                                        <h6 class="mb-0 text-dark" style="font-weight: 700;"><?= htmlspecialchars($user['username']) ?></h6>
-                                                        <span class="text-xs text-muted">ID: #<?= $user['id'] ?></span>
+                                                        <h6 class="mb-0 text-dark" style="font-weight: 700;"><?= htmlspecialchars($adoption['pet']) ?></h6>
+                                                        <span class="text-xs text-muted">ID: #<?= $adoption['id'] ?></span>
                                                     </div>
                                                 </div>
                                             </td>
                                             <td class="min-width">
-                                                <p class="text-sm font-weight-500 mb-0 d-flex align-items-center">
-                                                    <i class="lni lni-envelope text-muted me-2"></i> <?= htmlspecialchars($user['email']) ?>
+                                                <p class="text-sm font-weight-500 mb-0 d-flex align-items-center text-dark">
+                                                    <i class="lni lni-user text-primary me-2"></i> <?= htmlspecialchars($adoption['adopter']) ?>
                                                 </p>
                                             </td>
                                             <td class="min-width">
-                                                <span class="badge position-relative border px-3 py-2 rounded-pill" style="color: var(--primary-dark); background: rgba(236,72,153, 0.1); border-color: rgba(236,72,153, 0.3) !important;">
-                                                    Administrator
-                                                </span>
+                                                <p class="text-sm font-weight-500 mb-0 d-flex align-items-center text-muted">
+                                                    <?= htmlspecialchars($adoption['caretaker']) ?>
+                                                </p>
+                                            </td>
+                                            <td class="min-width">
+                                                <?php if ((int)$adoption['status'] === 0): ?>
+                                                    <span class="badge bg-warning text-dark text-xs py-1 px-3 rounded-pill" style="font-weight: 700;">Pending</span>
+                                                <?php else: ?>
+                                                    <span class="badge bg-success text-white text-xs py-1 px-3 rounded-pill" style="font-weight: 700;">Approved</span>
+                                                <?php endif; ?>
                                             </td>
                                             <td class="text-end pe-4">
                                                 <div class="action d-flex justify-content-end">
-                                                    <a href="<?= BASE_URL ?>pages/users-edit.php?id=<?= $user['id'] ?>"
-                                                        class="text-info me-3 bg-light rounded-circle d-flex" style="width: 35px; height: 35px; align-items: center; justify-content: center;">
+                                                    <?php if ((int)$adoption['status'] === 0): ?>
+                                                    <form action="<?= BASE_URL ?>actions/adoption-actions.php" method="post" onsubmit="return confirm('Approve this adoption request?');" class="m-0 me-2">
+                                                        <input type="hidden" name="adoption_id" value="<?= $adoption['id'] ?>">
+                                                        <input type="hidden" name="action" value="approve">
+                                                        <button class="text-success bg-light rounded-circle d-flex border-0" type="submit" name="submit" value="submit" style="width: 35px; height: 35px; align-items: center; justify-content: center;" title="Approve">
+                                                            <i class="lni lni-checkmark"></i>
+                                                        </button>
+                                                    </form>
+                                                    <?php endif; ?>
+                                                    
+                                                    <a href="<?= BASE_URL ?>pages/adoption-edit.php?id=<?= $adoption['id'] ?>"
+                                                        class="text-info me-2 bg-light rounded-circle d-flex" style="width: 35px; height: 35px; align-items: center; justify-content: center;" title="Edit">
                                                         <i class="lni lni-pencil-alt"></i>
                                                     </a>
-                                                    <form action="<?= BASE_URL ?>actions/user-actions.php" method="post" onsubmit="return confirm('Delete administrator?');" class="m-0">
-                                                        <input type="hidden" name="user_id" value="<?= $user['id'] ?>">
+                                                    
+                                                    <form action="<?= BASE_URL ?>actions/adoption-actions.php" method="post" onsubmit="return confirm('Remove this adoption record?');" class="m-0">
+                                                        <input type="hidden" name="adoption_id" value="<?= $adoption['id'] ?>">
                                                         <input type="hidden" name="action" value="delete">
-                                                        <button class="text-danger bg-light rounded-circle d-flex border-0" type="submit" name="submit" value="submit" style="width: 35px; height: 35px; align-items: center; justify-content: center;">
+                                                        <button class="text-danger bg-light rounded-circle d-flex border-0" type="submit" name="submit" value="submit" style="width: 35px; height: 35px; align-items: center; justify-content: center;" title="<?= (int)$adoption['status'] === 0 ? 'Reject' : 'Delete' ?>">
                                                             <i class="lni lni-trash-can"></i>
                                                         </button>
                                                     </form>
@@ -111,10 +137,10 @@ include_once BASE_PATH . 'config/database.php';
                                         </tr>
                                     <?php endforeach; ?>
                                     
-                                    <?php if(empty($users)): ?>
+                                    <?php if(empty($adoptions)): ?>
                                     <tr>
                                         <td colspan="4" class="text-center py-5 text-muted">
-                                            No users found.
+                                            No adoptions found.
                                         </td>
                                     </tr>
                                     <?php endif; ?>

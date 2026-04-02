@@ -15,11 +15,11 @@ if ($action == "store") {
 
     $uploadFilePath = uploadImage($_FILES['image']);
 
-    $name = $_POST['pet_name'];
-    $specie = $_POST['pet_specie'];
-    $breed = $_POST['breed'];
-    $description = $_POST['description'];
-    $image_path = $uploadFilePath;
+    $name = mysqli_real_escape_string($conn, $_POST['pet_name']);
+    $specie = mysqli_real_escape_string($conn, $_POST['pet_specie']);
+    $breed = mysqli_real_escape_string($conn, $_POST['breed']);
+    $description = mysqli_real_escape_string($conn, $_POST['description']);
+    $image_path = mysqli_real_escape_string($conn, $uploadFilePath);
 
     $query = "INSERT INTO pets (name, image_path, pet_specie, breed, description) VALUES ('$name', '$image_path', '$specie', '$breed', '$description')";
     mysqli_query($conn, $query);
@@ -37,14 +37,15 @@ if ($action == "update") {
         $uploadFilePath = uploadImage($_FILES['image']);
     }
 
-    $name = $_POST['pet_name'];
-    $specie = $_POST['pet_specie'];
-    $breed = $_POST['breed'];
-    $image_path = $uploadFilePath;
+    $name = mysqli_real_escape_string($conn, $_POST['pet_name']);
+    $specie = mysqli_real_escape_string($conn, $_POST['pet_specie']);
+    $breed = mysqli_real_escape_string($conn, $_POST['breed']);
+    $description = mysqli_real_escape_string($conn, $_POST['description'] ?? '');
+    $image_path = mysqli_real_escape_string($conn, $uploadFilePath);
 
     mysqli_query(
         $conn,
-        "UPDATE pets SET name='$name', pet_specie='$specie', breed='$breed', image_path='$image_path' WHERE id=$id"
+        "UPDATE pets SET name='$name', pet_specie='$specie', breed='$breed', description='$description', image_path='$image_path' WHERE id=$id"
     );
 
     header('Location: ' . BASE_URL . 'pages/pets.php');
